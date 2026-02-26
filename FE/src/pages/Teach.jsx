@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MdRefresh, MdCheckCircle, MdCancel, MdSchool } from 'react-icons/md';
 import './Pages.css';
+import { API_BASE } from '../config';
 
 export default function Teach() {
     const [subjectsData, setSubjectsData] = useState(null);
@@ -17,7 +18,7 @@ export default function Teach() {
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
-        fetch('/api/teach/subjects')
+        fetch(`${API_BASE}/teach/subjects`)
             .then(res => res.json())
             .then(data => setSubjectsData(data.subjects))
             .catch(err => console.error(err));
@@ -31,7 +32,7 @@ export default function Teach() {
         setSubmitted(false);
 
         try {
-            const res = await fetch('/api/teach/generate', {
+            const res = await fetch(`${API_BASE}/teach/generate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

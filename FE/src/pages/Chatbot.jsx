@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MdSend, MdPerson, MdSmartToy, MdLanguage } from 'react-icons/md';
 import ReactMarkdown from 'react-markdown';
 import './Pages.css';
+import { API_BASE } from '../config';
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([
@@ -33,7 +34,7 @@ export default function Chatbot() {
             // Create history from previous messages (excluding the newest one which is userMessage)
             const history = messages.filter(m => m.role !== 'system');
 
-            const response = await fetch('/api/chat/ask', {
+            const response = await fetch(`${API_BASE}/chat/ask`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: userMessage.content, history })

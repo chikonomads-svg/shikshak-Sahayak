@@ -2,7 +2,7 @@
 शिक्षक सहायक — News Feed (Tavily Search API)
 GET /news/feed — Bihar teacher & education news in Hindi
 """
-import os, time, httpx
+import os, time, httpx, re
 from fastapi import APIRouter
 
 router = APIRouter(prefix="/news", tags=["समाचार (News)"])
@@ -13,31 +13,46 @@ CACHE_TTL = 900
 TAVILY_URL = "https://api.tavily.com/search"
 
 QUERIES = [
-    {"label": "📚 बिहार शिक्षा समाचार", "query": "Bihar education teacher schools latest news in Hindi language only", "max": 5},
-    {"label": "🇮🇳 भारत शिक्षा समाचार", "query": "India education NCERT policy latest news in Hindi language only", "max": 4},
-    {"label": "📋 सरकारी योजनाएं", "query": "Bihar government teachers salary pension scheme latest news in Hindi language only", "max": 3},
+    {"label": "📚 बिहार शिक्षा समाचार", "query": "बिहार शिक्षा शिक्षक स्कूल ताज़ा खबर", "max": 5},
+    {"label": "🇮🇳 भारत शिक्षा समाचार", "query": "भारत शिक्षा नीति NCERT ताज़ा समाचार", "max": 4},
+    {"label": "📋 सरकारी योजनाएं", "query": "बिहार सरकारी शिक्षक वेतन पेंशन योजना खबर", "max": 3},
 ]
 
+
+def is_hindi(text):
+    return bool(re.search(r'[\u0900-\u097F]', text))
 
 async def _search(client, api_key, query, max_results):
     try:
         resp = await client.post(TAVILY_URL, json={
             "api_key": api_key, "query": query, "search_depth": "basic",
-            "max_results": max_results, "include_answer": False,
+            "max_results": 15, "include_answer": False,
             "include_raw_content": False, "topic": "news",
         })
         resp.raise_for_status()
         data = resp.json()
-        return [
-            {
-                "title": item.get("title", ""), "url": item.get("url", ""),
-                "snippet": item.get("content", "")[:300],
+        
+        filtered_results = []
+        for item in data.get("results", []):
+            title = item.get("title", "")
+            snippet = item.get("content", "")
+            
+            # Skip if title or snippet is empty, or if they don't contain Hindi text
+            if not title or not snippet: continue
+            if not is_hindi(title) and not is_hindi(snippet): continue
+            
+            filtered_results.append({
+                "title": title, 
+                "url": item.get("url", ""),
+                "snippet": snippet[:300],
                 "source": item.get("url", "").split("/")[2] if "/" in item.get("url", "") else "",
                 "score": item.get("score", 0),
                 "published_date": item.get("published_date", ""),
-            }
-            for item in data.get("results", [])
-        ]
+            })
+            if len(filtered_results) >= max_results:
+                break
+                
+        return filtered_results
     except Exception:
         return []
 

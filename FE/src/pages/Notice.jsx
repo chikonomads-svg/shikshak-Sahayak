@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MdCampaign, MdWarning } from 'react-icons/md';
 import ReactMarkdown from 'react-markdown';
 import './Pages.css';
+import { API_BASE } from '../config';
 
 export default function Notice() {
     const [notices, setNotices] = useState([]);
@@ -10,7 +11,7 @@ export default function Notice() {
     const [selectedNotice, setSelectedNotice] = useState(null);
 
     useEffect(() => {
-        fetch('/api/notice/feed')
+        fetch(`${API_BASE}/notice/feed`)
             .then(res => res.json())
             .then(data => {
                 setNotices(data.notices || []);

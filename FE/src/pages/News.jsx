@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MdRefresh, MdOpenInNew } from 'react-icons/md';
 import './Pages.css';
+import { API_BASE } from '../config';
 
 export default function News() {
     const [sections, setSections] = useState([]);
@@ -12,7 +13,7 @@ export default function News() {
         setLoading(true);
         setError('');
         try {
-            const res = await fetch('/api/news/feed');
+            const res = await fetch(`${API_BASE}/news/feed`);
             const data = await res.json();
             if (data.sections) {
                 setSections(data.sections);

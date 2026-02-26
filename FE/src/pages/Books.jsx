@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MdMenuBook, MdExpandMore, MdExpandLess } from 'react-icons/md';
 import ReactMarkdown from 'react-markdown';
 import './Pages.css';
+import { API_BASE } from '../config';
 
 export default function Books() {
     const [books, setBooks] = useState([]);
@@ -15,7 +16,7 @@ export default function Books() {
     const [loadingChapter, setLoadingChapter] = useState(false);
 
     useEffect(() => {
-        fetch('/api/books/list')
+        fetch(`${API_BASE}/books/list`)
             .then(res => res.json())
             .then(data => {
                 setBooks(data.books || []);
@@ -28,7 +29,7 @@ export default function Books() {
             setActiveBook(null); // toggle off
             return;
         }
-        const res = await fetch(`/api/books/${bookId}`);
+        const res = await fetch(`${API_BASE}/books/${bookId}`);
         const data = await res.json();
         if (data.book) {
             setActiveBook(data.book);
@@ -42,7 +43,7 @@ export default function Books() {
 
         // Simulate slight delay for realistic feeling
         setTimeout(async () => {
-            const res = await fetch(`/api/books/${bookId}/chapter/${chapterId}`);
+            const res = await fetch(`${API_BASE}/books/${bookId}/chapter/${chapterId}`);
             const data = await res.json();
             if (data.chapter) {
                 setChapterContent(data.chapter.content);
