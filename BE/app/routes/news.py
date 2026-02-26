@@ -7,15 +7,16 @@ from fastapi import APIRouter
 
 router = APIRouter(prefix="/news", tags=["समाचार (News)"])
 
-_cache = {"data": None, "ts": 0}
+from typing import Any
+_cache: dict[str, Any] = {"data": None, "ts": 0}
 CACHE_TTL = 900
 
 TAVILY_URL = "https://api.tavily.com/search"
 
 QUERIES = [
-    {"label": "📚 बिहार शिक्षा समाचार", "query": "बिहार शिक्षा शिक्षक स्कूल ताज़ा खबर", "max": 5},
-    {"label": "🇮🇳 भारत शिक्षा समाचार", "query": "भारत शिक्षा नीति NCERT ताज़ा समाचार", "max": 4},
-    {"label": "📋 सरकारी योजनाएं", "query": "बिहार सरकारी शिक्षक वेतन पेंशन योजना खबर", "max": 3},
+    {"label": "📚 बिहार शिक्षा समाचार", "query": "bihar shishak hindi news", "max": 6},
+    {"label": "🇮🇳 भारत शिक्षा समाचार", "query": "bihar teacher latest hindi news", "max": 4},
+    {"label": "📋 सरकारी योजनाएं", "query": "bihar education department latest news hindi", "max": 3},
 ]
 
 
@@ -37,9 +38,12 @@ async def _search(client, api_key, query, max_results):
             title = item.get("title", "")
             snippet = item.get("content", "")
             
-            # Skip if title or snippet is empty, or if they don't contain Hindi text
+            # Skip if title or snippet is empty
             if not title or not snippet: continue
-            if not is_hindi(title) and not is_hindi(snippet): continue
+            
+            # The user explicitly asked for "hindi news" queries because the previous strict Hindi regex 
+            # filtered out too many valid results that had English words. We will bypass the strict regex 
+            # check here and rely on Tavily returning Hindi context based on the new explicit queries.
             
             filtered_results.append({
                 "title": title, 
