@@ -44,18 +44,18 @@
 }
 
 .hero-subtitle {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--p-text-sub);
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
 }
 
 .hero-btn {
-    background: white;
-    color: var(--saffron-dark);
+    background: var(--p-accent);
+    color: white;
 }
 
 .hero-btn:hover {
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--p-accent-lt);
 }
 
 .hero-illustration {
@@ -67,16 +67,16 @@
 
 /* 3D styling for glass panels */
 .glass-panel {
-    background: rgba(255, 255, 255, 0.85);
+    background: var(--p-card);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+    border: 1px solid var(--p-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
 }
 
 .glass-panel:hover {
-    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.08);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
 }
 
 .section-header {
@@ -96,14 +96,14 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: var(--p-card);
+    border: 1px solid var(--p-border);
     transition: all 0.3s ease;
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--p-bg2);
     box-shadow: var(--shadow-xl);
 }
 
@@ -120,18 +120,20 @@
 .feature-title {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
+    color: var(--p-text);
 }
 
 .feature-desc {
     font-size: 0.9rem;
     flex: 1;
+    color: var(--p-text-muted);
 }
 
 .feature-link {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--saffron);
+    color: var(--p-accent);
     font-weight: 600;
     font-size: 0.9rem;
     margin-top: 1rem;
@@ -211,8 +213,9 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: var(--light-blue);
-    color: var(--deep-blue);
+    background: var(--p-card);
+    color: var(--p-text-sub);
+    border: 1px solid var(--p-border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -220,12 +223,15 @@
 }
 
 .message-user .message-avatar {
-    background: var(--saffron-light);
+    background: var(--p-accent);
     color: white;
+    border: none;
 }
 
 .message-content {
-    background: white;
+    background: var(--p-card);
+    color: var(--p-text);
+    border: 1px solid var(--p-border);
     padding: 1rem 1.25rem;
     border-radius: 0 var(--radius-lg) var(--radius-lg) var(--radius-lg);
     box-shadow: var(--shadow-sm);
@@ -233,8 +239,9 @@
 }
 
 .message-user .message-content {
-    background: var(--deep-blue);
+    background: var(--p-accent);
     color: white;
+    border: none;
     border-radius: var(--radius-lg) 0 var(--radius-lg) var(--radius-lg);
 }
 
@@ -254,20 +261,20 @@
 }
 
 .suggestion-chip {
-    background: white;
-    border: 1px solid var(--border-color);
+    background: var(--p-bg2);
+    border: 1px solid var(--p-border);
     padding: 0.5rem 1rem;
     border-radius: var(--radius-full);
     font-size: 0.85rem;
-    color: var(--text-muted);
+    color: var(--p-text-sub);
     cursor: pointer;
     transition: all var(--transition-fast);
 }
 
 .suggestion-chip:hover {
-    background: var(--saffron-light);
-    color: white;
-    border-color: var(--saffron-light);
+    background: rgba(37, 99, 235, 0.15);
+    color: var(--p-accent);
+    border-color: var(--p-accent);
 }
 
 .chat-input-form {
@@ -275,6 +282,8 @@
     padding: 0.75rem;
     gap: 0.5rem;
     border-radius: var(--radius-full);
+    background: var(--p-card);
+    border: 1px solid var(--p-border);
 }
 
 .chat-input-form input {
@@ -284,6 +293,7 @@
     padding: 0.5rem 1rem;
     font-size: 1rem;
     outline: none;
+    color: var(--p-text);
 }
 
 .send-btn {
@@ -339,14 +349,16 @@
     font-size: 0.85rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--text-muted);
+    color: var(--p-text-sub);
 }
 
 .form-group select {
     width: 100%;
     padding: 0.75rem;
     border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
+    background: var(--p-bg2);
+    color: var(--p-text);
+    border: 1px solid var(--p-border);
     outline: none;
 }
 
@@ -391,27 +403,29 @@
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: var(--saffron);
+    color: var(--p-accent-lt);
     margin-bottom: 0.5rem;
 }
 
 .news-title {
-    font-family: 'Outfit', 'Noto Sans Devanagari', sans-serif;
+    font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
     font-size: 1.25rem;
     font-weight: 700;
     line-height: 1.4;
     margin-bottom: 0.75rem;
+    color: var(--p-text);
 }
 
 .news-snippet {
     font-size: 0.9rem;
     flex: 1;
+    color: var(--p-text-muted);
 }
 
 .news-footer {
     margin-top: 1rem;
     font-size: 0.85rem;
-    color: var(--deep-blue);
+    color: var(--p-accent);
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -448,18 +462,19 @@
 
 .book-subject {
     font-size: 0.8rem;
-    color: var(--saffron);
+    color: var(--p-accent-lt);
     font-weight: 600;
 }
 
 .book-title {
     font-size: 1.2rem;
     margin: 0.25rem 0;
+    color: var(--p-text);
 }
 
 .book-chapter-count {
     font-size: 0.85rem;
-    color: var(--text-muted);
+    color: var(--p-text-muted);
 }
 
 .chapter-buttons {
@@ -495,8 +510,8 @@
 .spinner {
     width: 40px;
     height: 40px;
-    border: 4px solid var(--light-blue);
-    border-top-color: var(--saffron);
+    border: 4px solid var(--p-border);
+    border-top-color: var(--p-accent);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }

@@ -40,29 +40,26 @@
     gap: 1rem;
     padding: 0.875rem 1rem;
     border-radius: var(--radius-lg);
-    color: var(--text-muted);
+    color: var(--p-text-sub);
     text-decoration: none;
     font-weight: 500;
     position: relative;
-    transition: color var(--transition-fast);
+    transition: all var(--transition-fast);
+    border-left: 3px solid transparent;
 }
 
 .nav-link:hover {
-    color: var(--saffron);
-    background: rgba(255, 107, 53, 0.05);
+    color: var(--p-accent);
+    background: rgba(37, 99, 235, 0.08);
+    /* MedGuardian hover */
 }
 
 .nav-link.active {
-    color: white;
-}
-
-.active-indicator {
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-lg);
-    background: var(--saffron);
-    z-index: -1;
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    color: var(--p-accent);
+    background: rgba(37, 99, 235, 0.12);
+    /* MedGuardian active */
+    border-left-color: var(--p-accent);
+    font-weight: 700;
 }
 
 .sidebar-footer {
@@ -99,12 +96,12 @@
 .user-name {
     font-weight: 600;
     font-size: 0.95rem;
-    color: var(--text-main);
+    color: var(--p-text);
 }
 
 .user-role {
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: var(--p-text-muted);
 }
 
 /* Mobile Nav */
@@ -129,7 +126,7 @@
     flex-direction: column;
     align-items: center;
     gap: 0.2rem;
-    color: var(--text-muted);
+    color: var(--p-text-muted);
     text-decoration: none;
     position: relative;
     flex: 1;
@@ -144,8 +141,7 @@
 }
 
 .mobile-nav-item.active .icon-container {
-    background: rgba(255, 107, 53, 0.15);
-    color: var(--saffron);
+    color: var(--p-accent);
 }
 
 .mobile-nav-label {
@@ -155,5 +151,5 @@
 }
 
 .mobile-nav-item.active .mobile-nav-label {
-    color: var(--saffron);
+    color: var(--p-accent);
 }
