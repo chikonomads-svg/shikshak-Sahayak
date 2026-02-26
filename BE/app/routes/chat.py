@@ -3,6 +3,7 @@
 POST /chat/ask — AI chatbot for Bihar Board teachers
 """
 import os
+from dotenv import load_dotenv
 from fastapi import APIRouter
 from pydantic import BaseModel
 from openai import AzureOpenAI
@@ -42,11 +43,16 @@ class ChatResponse(BaseModel):
 @router.post("/ask", response_model=ChatResponse)
 async def chat_ask(req: ChatRequest):
     """AI chatbot — ask any teaching question (Hindi/English)."""
-    endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "")
-    api_key = os.getenv("AZURE_OPENAI_API_KEY", "")
-    deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-5-mini")
-    api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
+    endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "").strip('"').strip("'")
+    api_key = os.getenv("AZURE_OPENAI_API_KEY", "").strip('"').strip("'")
+    deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-5-mini").strip('"').strip("'")
+    api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview").strip('"').strip("'")
 
+    if not endpoint or not api_key:
+        load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+        endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "").strip('"').strip("'")
+        api_key = os.getenv("AZURE_OPENAI_API_KEY", "").strip('"').strip("'")
+        
     if not endpoint or not api_key:
         return ChatResponse(reply="", error="Azure OpenAI credentials not configured")
 

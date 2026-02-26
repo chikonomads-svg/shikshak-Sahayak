@@ -5,9 +5,15 @@ Runs at: http://localhost:8001
 Docs  at: http://localhost:8001/docs
 """
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
+env_path = Path(__file__).parent.parent / "keys.env"
+print(f"Loading .env from: {env_path}")
+load_dotenv(dotenv_path=env_path, override=True)
+
+print("AZURE_OPENAI_ENDPOINT:", os.getenv("AZURE_OPENAI_ENDPOINT"))
+print("AZURE_OPENAI_API_KEY present:", bool(os.getenv("AZURE_OPENAI_API_KEY")))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

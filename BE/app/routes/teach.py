@@ -4,6 +4,7 @@ GET  /teach/subjects   — List all subjects for all classes
 POST /teach/generate   — AI-generated MCQ questions
 """
 import os
+from dotenv import load_dotenv
 from fastapi import APIRouter
 from pydantic import BaseModel
 from openai import AzureOpenAI
@@ -39,10 +40,15 @@ async def list_subjects():
 @router.post("/generate")
 async def generate_questions(req: GenerateRequest):
     """Generate MCQ questions for a given class/subject/topic using AI."""
-    endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "")
-    api_key = os.getenv("AZURE_OPENAI_API_KEY", "")
-    deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-5-mini")
-    api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
+    endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "").strip('"').strip("'")
+    api_key = os.getenv("AZURE_OPENAI_API_KEY", "").strip('"').strip("'")
+    deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-5-mini").strip('"').strip("'")
+    api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview").strip('"').strip("'")
+
+    if not endpoint or not api_key:
+        load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+        endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "").strip('"').strip("'")
+        api_key = os.getenv("AZURE_OPENAI_API_KEY", "").strip('"').strip("'")
 
     subj = SUBJECTS.get(req.subject)
     if not subj:
