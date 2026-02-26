@@ -10,6 +10,11 @@ export default function Notice() {
     const [loading, setLoading] = useState(true);
     const [selectedNotice, setSelectedNotice] = useState(null);
 
+    const extractUrl = (content) => {
+        const match = content?.match(/\((https?:\/\/[^\s]+)\)/);
+        return match ? match[1] : null;
+    };
+
     useEffect(() => {
         fetch(`${API_BASE}/notice/feed`)
             .then(res => res.json())
@@ -70,13 +75,16 @@ export default function Notice() {
             ) : (
                 <div className="notices-list flex flex-col gap-4">
                     {notices.map((notice, idx) => (
-                        <motion.div
+                        <motion.a
+                            href={extractUrl(notice.content)}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             key={notice.id}
                             className="notice-card glass-panel flex flex-col sm:flex-row gap-4 sm:items-center justify-between cursor-pointer hover:border-red-200 transition-colors"
-                            onClick={() => setSelectedNotice(notice)}
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.1 }}
+                            style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                             <div className="flex-1">
                                 <div className="flex gap-2 items-center mb-2">
@@ -97,7 +105,7 @@ export default function Notice() {
                                     विस्तार से पढ़ें
                                 </button>
                             </div>
-                        </motion.div>
+                        </motion.a>
                     ))}
                 </div>
             )}

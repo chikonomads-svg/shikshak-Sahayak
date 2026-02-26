@@ -73,7 +73,14 @@ export default function News() {
                                             transition={{ delay: nIdx * 0.1 }}
                                             whileHover={{ y: -5, boxShadow: 'var(--shadow-lg)' }}
                                         >
-                                            <div className="news-source">{news.source || 'स्थानीय समाचार'}</div>
+                                            <div className="news-meta" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                                                <div className="news-source">{news.source || 'स्थानीय समाचार'}</div>
+                                                {news.published_date && (
+                                                    <div className="news-date" style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                                                        {new Date(news.published_date).toLocaleDateString('hi-IN', { year: 'numeric', month: 'short', day: 'numeric' })}
+                                                    </div>
+                                                )}
+                                            </div>
                                             <h3 className="news-title">{news.title}</h3>
                                             <p className="news-snippet">{news.snippet}</p>
                                             <div className="news-footer">
