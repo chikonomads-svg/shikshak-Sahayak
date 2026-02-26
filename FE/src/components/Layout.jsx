@@ -12,17 +12,27 @@ import {
 import './Layout.css';
 
 const navItems = [
-    { path: '/', name: 'डैशबोर्ड', icon: <MdDashboard size={24} /> },
-    { path: '/chat', name: 'चैटबॉट', icon: <MdChatBubbleOutline size={24} /> },
-    { path: '/news', name: 'समाचार', icon: <MdArticle size={24} /> },
-    { path: '/teach', name: 'पढ़ाएं', icon: <MdSchool size={24} /> },
-    { path: '/books', name: 'किताबें', icon: <MdMenuBook size={24} /> },
-    { path: '/notice', name: 'सूचना', icon: <MdCampaign size={24} /> },
+    { path: '/', name: 'होम', icon: <MdDashboard size={22} /> },
+    { path: '/chat', name: 'चैटबॉट', icon: <MdChatBubbleOutline size={22} /> },
+    { path: '/news', name: 'समाचार', icon: <MdArticle size={22} /> },
+    { path: '/teach', name: 'पढ़ाएं', icon: <MdSchool size={22} /> },
+    { path: '/books', name: 'किताबें', icon: <MdMenuBook size={22} /> },
+    { path: '/notice', name: 'सूचना', icon: <MdCampaign size={22} /> },
 ];
+
+const pageNames = {
+    '/': 'डैशबोर्ड',
+    '/chat': 'AI चैटबॉट',
+    '/news': 'शिक्षा समाचार',
+    '/teach': 'पढ़ाएं',
+    '/books': 'किताबें',
+    '/notice': 'सूचनाएं',
+};
 
 export default function Layout({ children }) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const location = useLocation();
+    const currentPageName = pageNames[location.pathname] || 'शिक्षक सहायक';
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -67,9 +77,9 @@ export default function Layout({ children }) {
 
                     <div className="sidebar-footer">
                         <div className="user-profile">
-                            <div className="avatar">प्र</div>
+                            <div className="avatar">श</div>
                             <div className="user-info">
-                                <span className="user-name">प्रमिला जी</span>
+                                <span className="user-name">शिक्षक जी</span>
                                 <span className="user-role">बिहार बोर्ड</span>
                             </div>
                         </div>
@@ -77,14 +87,25 @@ export default function Layout({ children }) {
                 </aside>
             )}
 
+            {/* Mobile Top Header */}
+            {isMobile && (
+                <header className="mobile-header glass-panel">
+                    <div className="mobile-header-brand">
+                        <span>📚</span>
+                        <span className="mobile-header-title title-saffron">शिक्षक सहायक</span>
+                    </div>
+                    <span className="mobile-header-page">{currentPageName}</span>
+                </header>
+            )}
+
             {/* Main Content Area */}
             <main className="main-content">
                 <motion.div
                     key={location.pathname}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.18 }}
                 >
                     {children}
                 </motion.div>
@@ -92,7 +113,7 @@ export default function Layout({ children }) {
 
             {/* Mobile Bottom Nav */}
             {isMobile && (
-                <nav className="mobile-nav glass-panel">
+                <nav className="mobile-nav">
                     {navItems.map((item) => (
                         <NavLink
                             key={item.path}
@@ -101,8 +122,9 @@ export default function Layout({ children }) {
                         >
                             {({ isActive }) => (
                                 <>
-                                    <div className="icon-container">
+                                    <div className={`icon-container ${isActive ? 'icon-active' : ''}`}>
                                         {item.icon}
+                                        {isActive && <motion.div layoutId="navPill" className="nav-pill" />}
                                     </div>
                                     <span className="mobile-nav-label">{item.name}</span>
                                 </>
