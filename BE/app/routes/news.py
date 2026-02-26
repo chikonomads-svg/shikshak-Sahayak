@@ -14,9 +14,20 @@ CACHE_TTL = 900
 TAVILY_URL = "https://api.tavily.com/search"
 
 QUERIES = [
-    {"label": "📚 बिहार शिक्षा समाचार", "query": "bihar shishak hindi news", "max": 6},
-    {"label": "🇮🇳 भारत शिक्षा समाचार", "query": "bihar teacher latest hindi news", "max": 4},
-    {"label": "📋 सरकारी योजनाएं", "query": "bihar education department latest news hindi", "max": 3},
+    {"label": "📚 बिहार शिक्षा समाचार", "query": "बिहार शिक्षा विभाग शिक्षक स्कूल ताज़ा खबर hindi", "max": 8},
+    {"label": "🇮🇳 भारत शिक्षा समाचार", "query": "भारत शिक्षा नीति NCERT ताज़ा समाचार hindi", "max": 5},
+    {"label": "📋 सरकारी योजनाएं", "query": "बिहार सरकारी शिक्षक वेतन पेंशन योजना खबर hindi", "max": 4},
+]
+
+# Popular Hindi news domains to guide Tavily
+HINDI_DOMAINS = [
+    "livehindustan.com",
+    "jagran.com",
+    "aajtak.in",
+    "abplive.com",
+    "navbharattimes.indiatimes.com",
+    "prabhatkhabar.com",
+    "news18.com/hindi"
 ]
 
 
@@ -26,8 +37,9 @@ def is_hindi(text):
 async def _search(client, api_key, query, max_results):
     try:
         resp = await client.post(TAVILY_URL, json={
-            "api_key": api_key, "query": query, "search_depth": "basic",
-            "max_results": 15, "include_answer": False,
+            "api_key": api_key, "query": query, "search_depth": "advanced",
+            "max_results": 20, "include_answer": False,
+            "include_domains": HINDI_DOMAINS,
             "include_raw_content": False, "topic": "news",
         })
         resp.raise_for_status()
@@ -41,9 +53,8 @@ async def _search(client, api_key, query, max_results):
             # Skip if title or snippet is empty
             if not title or not snippet: continue
             
-            # The user explicitly asked for "hindi news" queries because the previous strict Hindi regex 
-            # filtered out too many valid results that had English words. We will bypass the strict regex 
-            # check here and rely on Tavily returning Hindi context based on the new explicit queries.
+            # Ensure at least part of the result is actually in Hindi
+            if not is_hindi(title) and not is_hindi(snippet): continue
             
             filtered_results.append({
                 "title": title, 

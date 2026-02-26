@@ -3,6 +3,7 @@
 Important Bihar Education Dept notices for teachers fetched via Tavily
 """
 import os, time, httpx
+from typing import Any, Optional
 from fastapi import APIRouter
 
 router = APIRouter(prefix="/notice", tags=["सूचना (Notice)"])
@@ -86,7 +87,7 @@ async def _fetch_notices(client, api_key):
         return []
 
 @router.get("/feed")
-async def notice_feed(category: str | None = None):
+async def notice_feed(category: Optional[str] = None):
     """Get all notices fetched dynamically, optionally filtered by category."""
     now = time.time()
     
