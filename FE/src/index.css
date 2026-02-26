@@ -1,21 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    /* Peace Mode (Navy) */
-    --p-bg: #0A1628;
-    --p-bg2: #0F1E3A;
-    --p-card: #1A2E4A;
-    --p-border: #1E3A5F;
+    /* Clean Light Mode */
+    --p-bg: #F8FAFC;
+    /* Light grayish blue background */
+    --p-bg2: #FFFFFF;
+    /* Pure white for panels/sidebars */
+    --p-card: rgba(255, 255, 255, 0.85);
+    /* Glass card */
+    --p-border: #E2E8F0;
+    /* Soft border */
     --p-accent: #2563EB;
+    /* Trustworthy blue accent */
     --p-accent-lt: #3B82F6;
-    --p-accent-glow: rgba(37, 99, 235, 0.35);
+    --p-accent-glow: rgba(37, 99, 235, 0.2);
     --p-shield: #1D4ED8;
-    --p-shield-glow: rgba(29, 78, 216, 0.5);
+    --p-shield-glow: rgba(29, 78, 216, 0.3);
     --p-success: #10B981;
     --p-warning: #F59E0B;
-    --p-text: #F0F6FF;
-    --p-text-sub: #93ACCC;
-    --p-text-muted: #4A6FA5;
+    --p-text: #0F172A;
+    /* Dark grey text */
+    --p-text-sub: #334155;
+    --p-text-muted: #64748B;
 
     /* Legacy variables for backwards compatibility during migration */
     --bg-color: var(--p-bg);
@@ -28,9 +34,9 @@
     --error: #EF4444;
 
     /* Shadows */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.15);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 6px 24px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 6px 24px rgba(0, 0, 0, 0.1);
     --shadow-glow: 0 4px 20px var(--p-accent-glow);
 
     /* Radius */
@@ -59,22 +65,24 @@ body {
 }
 
 body {
-    background: #060A12;
+    background: var(--p-bg);
     min-height: 100vh;
 }
 
 /* Glassmorphism Classes */
 .glass-panel {
     background: var(--p-card);
-    border: 1px solid var(--p-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
     border-radius: 16px;
     padding: 1rem;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .glass-panel:hover {
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
     transform: translateY(-1px);
 }
 

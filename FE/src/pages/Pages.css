@@ -31,7 +31,7 @@
 }
 
 .hero-title {
-    color: white;
+    color: var(--p-text);
     font-size: 2rem;
     margin-bottom: 1rem;
     line-height: 1.2;
