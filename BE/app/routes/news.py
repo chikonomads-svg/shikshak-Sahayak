@@ -13,9 +13,9 @@ CACHE_TTL = 900
 TAVILY_URL = "https://api.tavily.com/search"
 
 QUERIES = [
-    {"label": "📚 बिहार शिक्षा समाचार", "query": "Bihar education teacher school news Hindi 2026", "max": 5},
-    {"label": "🇮🇳 भारत शिक्षा समाचार", "query": "India education teacher NCERT school policy news Hindi 2026", "max": 4},
-    {"label": "📋 सरकारी योजनाएं", "query": "Bihar government teacher salary scheme policy 2026 Hindi", "max": 3},
+    {"label": "📚 बिहार शिक्षा समाचार", "query": "Bihar education teacher schools latest news in Hindi language only", "max": 5},
+    {"label": "🇮🇳 भारत शिक्षा समाचार", "query": "India education NCERT policy latest news in Hindi language only", "max": 4},
+    {"label": "📋 सरकारी योजनाएं", "query": "Bihar government teachers salary pension scheme latest news in Hindi language only", "max": 3},
 ]
 
 

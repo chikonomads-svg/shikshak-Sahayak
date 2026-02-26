@@ -18,6 +18,7 @@ class GenerateRequest(BaseModel):
     topic: str = ""
     count: int = 5
     difficulty: str = "medium"  # easy, medium, hard
+    mode: str = "mcq"  # mcq, descriptive, actual
 
 
 @router.get("/subjects")
@@ -59,25 +60,21 @@ async def generate_questions(req: GenerateRequest):
     if not endpoint or not api_key:
         return {"error": "Azure OpenAI credentials not configured", "questions": _fallback_questions(req)}
 
-    prompt = f"""कक्षा {req.class_num} के विषय {subj['name']} के लिए {req.count} बहुविकल्पीय प्रश्न (MCQ) बनाएं।
+    mode_prompts = {
+        "mcq": f"कक्षा {req.class_num} के विषय {subj['name']} के लिए {req.count} बहुविकल्पीय प्रश्न (MCQ) बनाएं।\n\nप्रत्येक प्रश्न के लिए निम्न JSON प्रारूप में उत्तर दें:\n[\n  {{\n    \"question\": \"प्रश्न यहां\",\n    \"options\": [\"विकल्प अ\", \"विकल्प ब\", \"विकल्प स\", \"विकल्प द\"],\n    \"correct\": 0,\n    \"explanation\": \"संक्षिप्त व्याख्या\"\n  }}\n]",
+        "descriptive": f"कक्षा {req.class_num} के विषय {subj['name']} के लिए {req.count} वर्णनात्मक (Descriptive) प्रश्न और उनके विस्तृत उत्तर बनाएं।\n\nप्रत्येक प्रश्न के लिए निम्न JSON प्रारूप में उत्तर दें:\n[\n  {{\n    \"question\": \"प्रश्न यहां\",\n    \"answer\": \"विस्तृत उत्तर यहां (लगभग 50-100 शब्द)\"\n  }}\n]",
+        "actual": f"कक्षा {req.class_num} के विषय {subj['name']} के लिए बिहार बोर्ड की पिछली परीक्षाओं (Past Papers) में पूछे गए या पूछे जाने वाले {req.count} अति-महत्वपूर्ण प्रश्न (MCQ या वर्णनात्मक) और उनके उत्तर दें। यह सुनिश्चित करें कि ये बिहार बोर्ड के पाठ्यक्रम के एकदम अनुरूप हों।\n\nप्रत्येक प्रश्न के लिए निम्न JSON प्रारूप में उत्तर दें:\n[\n  {{\n    \"question\": \"प्रश्न यहां\",\n    \"answer\": \"उत्तर या व्याख्या यहां\",\n    \"year\": \"पूछे जाने का संभावित वर्ष (जैसे 2022, 2023)\"\n  }}\n]"
+    }
+
+    base_prompt = mode_prompts.get(req.mode, mode_prompts["mcq"])
+
+    prompt = f"""{base_prompt}
 
 विषय/टॉपिक: {topic_str}
 कठिनाई स्तर: {diff_hindi}
 
-प्रत्येक प्रश्न के लिए निम्न JSON प्रारूप में उत्तर दें:
-[
-  {{
-    "question": "प्रश्न यहां",
-    "options": ["विकल्प अ", "विकल्प ब", "विकल्प स", "विकल्प द"],
-    "correct": 0,
-    "topic": "टॉपिक",
-    "explanation": "संक्षिप्त व्याख्या"
-  }}
-]
-
 नियम:
-- सभी प्रश्न हिंदी में हों
-- correct फ़ील्ड में सही उत्तर का इंडेक्स (0-3) हो
+- सभी प्रश्न शुद्ध हिंदी में हों
 - कक्षा {req.class_num} के स्तर के अनुसार प्रश्न हों
 - बिहार बोर्ड पाठ्यक्रम के अनुसार
 - केवल JSON array दें, कोई अन्य टेक्स्ट नहीं"""
