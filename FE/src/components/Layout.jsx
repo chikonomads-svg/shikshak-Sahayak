@@ -67,9 +67,9 @@ export default function Layout({ children }) {
 
                     <div className="sidebar-footer">
                         <div className="user-profile">
-                            <div className="avatar">श</div>
+                            <div className="avatar">प्र</div>
                             <div className="user-info">
-                                <span className="user-name">शिक्षक जी</span>
+                                <span className="user-name">प्रमिला जी</span>
                                 <span className="user-role">बिहार बोर्ड</span>
                             </div>
                         </div>
