@@ -1,6 +1,6 @@
 /* Dashboard */
 .hero-card {
-    padding: 3rem 2rem;
+    padding: 2rem 1.5rem;
     border-radius: var(--radius-xl);
     display: flex;
     justify-content: space-between;
@@ -8,6 +8,12 @@
     margin-bottom: 2rem;
     position: relative;
     overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .hero-card {
+        padding: 3rem 2rem;
+    }
 }
 
 .hero-content {
@@ -26,9 +32,15 @@
 
 .hero-title {
     color: white;
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
     line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
 }
 
 .hero-subtitle {
@@ -129,9 +141,15 @@
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 4rem);
+    height: calc(100vh - 10rem);
     max-width: 800px;
     margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .chat-container {
+        height: calc(100vh - 4rem);
+    }
 }
 
 .chat-header {
