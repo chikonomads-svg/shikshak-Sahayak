@@ -54,3 +54,4 @@ yarn-error.log*
 
 # ── Expo (if any leftover) ────────────────────────────────────────────────────
 .expo/
+BE/keys.env
