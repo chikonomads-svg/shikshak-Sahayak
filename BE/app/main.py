@@ -9,8 +9,13 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 env_path = Path(__file__).parent.parent / "keys.env"
-print(f"Loading .env from: {env_path}")
-load_dotenv(dotenv_path=env_path, override=True)
+if env_path.exists():
+    print(f"Loading .env from: {env_path}")
+    load_dotenv(dotenv_path=env_path, override=True)
+else:
+    # Try default .env if keys.env is missing
+    load_dotenv()
+    print("No keys.env found, using system environment variables.")
 
 print("AZURE_OPENAI_ENDPOINT:", os.getenv("AZURE_OPENAI_ENDPOINT"))
 print("AZURE_OPENAI_API_KEY present:", bool(os.getenv("AZURE_OPENAI_API_KEY")))
@@ -36,7 +41,6 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
