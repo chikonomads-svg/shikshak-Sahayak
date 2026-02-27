@@ -61,7 +61,7 @@ export default function Chatbot() {
     ];
 
     return (
-        <div className="page-container chat-container">
+        <div className="chat-container">
             <div className="chat-header glass-panel">
                 <div className="chat-title-row">
                     <MdSmartToy size={28} className="text-saffron" />
