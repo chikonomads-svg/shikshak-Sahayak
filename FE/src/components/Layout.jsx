@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
     MdDashboard,
@@ -7,7 +7,8 @@ import {
     MdArticle,
     MdSchool,
     MdMenuBook,
-    MdCampaign
+    MdCampaign,
+    MdLogout
 } from 'react-icons/md';
 import './Layout.css';
 
@@ -32,13 +33,24 @@ const pageNames = {
 export default function Layout({ children }) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const location = useLocation();
+    const navigate = useNavigate();
     const currentPageName = pageNames[location.pathname] || 'शिक्षक सहायक';
+
+    // Get signed in user data
+    const userStr = localStorage.getItem('shikshak_user');
+    const user = userStr ? JSON.parse(userStr) : { name: 'शिक्षक जी' };
+    const initial = user.name ? user.name.charAt(0).toUpperCase() : 'श';
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('shikshak_user');
+        navigate('/login');
+    };
 
     return (
         <div className="app-container">
@@ -76,25 +88,33 @@ export default function Layout({ children }) {
                     </nav>
 
                     <div className="sidebar-footer">
-                        <div className="user-profile">
-                            <div className="avatar">श</div>
+                        <div className="user-profile flex-1">
+                            <div className="avatar">{initial}</div>
                             <div className="user-info">
-                                <span className="user-name">शिक्षक जी</span>
+                                <span className="user-name">{user.name}</span>
                                 <span className="user-role">बिहार बोर्ड</span>
                             </div>
                         </div>
+                        <button onClick={handleLogout} className="btn btn-outline" style={{ padding: '0.5rem', border: 'none', color: '#EF4444' }} title="लॉग आउट">
+                            <MdLogout size={22} />
+                        </button>
                     </div>
                 </aside>
             )}
 
             {/* Mobile Top Header */}
             {isMobile && (
-                <header className="mobile-header glass-panel">
-                    <div className="mobile-header-brand">
-                        <span>📚</span>
-                        <span className="mobile-header-title title-saffron">शिक्षक सहायक</span>
+                <header className="mobile-header glass-panel" style={{ justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div className="mobile-header-brand">
+                            <span>📚</span>
+                            <span className="mobile-header-title title-saffron">शिक्षक सहायक</span>
+                        </div>
+                        <span className="mobile-header-page" style={{ marginLeft: '4px' }}>{currentPageName}</span>
                     </div>
-                    <span className="mobile-header-page">{currentPageName}</span>
+                    <button onClick={handleLogout} className="btn-link" style={{ color: '#EF4444', padding: '0 8px' }}>
+                        <MdLogout size={22} />
+                    </button>
                 </header>
             )}
 

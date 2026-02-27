@@ -23,7 +23,7 @@ print("AZURE_OPENAI_API_KEY present:", bool(os.getenv("AZURE_OPENAI_API_KEY")))
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes import chat, news, teach, books, notice
+from app.routes import chat, news, teach, books, notice, auth
 
 app = FastAPI(
     title="📚 शिक्षक सहायक API",
@@ -46,6 +46,7 @@ app.add_middleware(
 )
 
 # REST Routers
+app.include_router(auth.router)
 app.include_router(chat.router)
 app.include_router(news.router)
 app.include_router(teach.router)

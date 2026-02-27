@@ -5,6 +5,15 @@ import './Pages.css';
 
 export default function Dashboard() {
     const navigate = useNavigate();
+    const userStr = localStorage.getItem('shikshak_user');
+    const user = userStr ? JSON.parse(userStr) : { name: 'शिक्षक जी' };
+
+    // Greeting based on time
+    const hour = new Date().getHours();
+    let greeting = 'नमस्कार';
+    if (hour < 12) greeting = 'सुप्रभात';
+    else if (hour < 18) greeting = 'शुभ दोपहर';
+    else greeting = 'शुभ संध्या';
 
     const features = [
         { title: 'AI शिक्षक सहायक (चैटबॉट)', desc: 'प्रश्नों के उत्तर, शिक्षण सुझाव और मार्गदर्शन', icon: <MdChatBubbleOutline size={32} />, path: '/chat', color: '#3B82F6' },
@@ -22,7 +31,7 @@ export default function Dashboard() {
                 animate={{ y: 0, opacity: 1 }}
             >
                 <div className="hero-content">
-                    <span className="greeting">सुप्रभात, प्रमिला जी! 👋</span>
+                    <span className="greeting">{greeting}, {user.name}! 👋</span>
                     <h1 className="hero-title">शिक्षा में आपका डिजिटल साथी</h1>
                     <p className="hero-subtitle">
                         शिक्षक सहायक ऐप में आपका स्वागत है। यहां आपको शिक्षण, बिहार शिक्षा विभाग की खबरों, और

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Chatbot from './pages/Chatbot';
@@ -6,20 +6,40 @@ import News from './pages/News';
 import Teach from './pages/Teach';
 import Books from './pages/Books';
 import Notice from './pages/Notice';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+
+// Protected Route Wrapper
+function ProtectedRoute({ children }) {
+    const user = localStorage.getItem('shikshak_user');
+    const location = useLocation();
+
+    if (!user) {
+        return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+
+    return <Layout>{children}</Layout>;
+}
 
 function App() {
     return (
         <Router>
-            <Layout>
-                <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/chat" element={<Chatbot />} />
-                    <Route path="/news" element={<News />} />
-                    <Route path="/teach" element={<Teach />} />
-                    <Route path="/books" element={<Books />} />
-                    <Route path="/notice" element={<Notice />} />
-                </Routes>
-            </Layout>
+            <Routes>
+                {/* Public Auth Routes */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+
+                {/* Protected App Routes wrapped in Layout */}
+                <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/chat" element={<ProtectedRoute><Chatbot /></ProtectedRoute>} />
+                <Route path="/news" element={<ProtectedRoute><News /></ProtectedRoute>} />
+                <Route path="/teach" element={<ProtectedRoute><Teach /></ProtectedRoute>} />
+                <Route path="/books" element={<ProtectedRoute><Books /></ProtectedRoute>} />
+                <Route path="/notice" element={<ProtectedRoute><Notice /></ProtectedRoute>} />
+
+                {/* Fallback */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
         </Router>
     );
 }
