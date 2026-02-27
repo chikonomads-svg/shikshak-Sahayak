@@ -8,6 +8,8 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from openai import AzureOpenAI
 
+from app.logger import logger
+
 router = APIRouter(prefix="/chat", tags=["चैटबॉट (Chatbot)"])
 
 SYSTEM_PROMPT = """आप बिहार बोर्ड के सरकारी विद्यालयों के लिए AI शिक्षक सहायक हैं।
@@ -98,6 +100,7 @@ async def chat_ask(req: ChatRequest):
         api_key = os.getenv("AZURE_OPENAI_API_KEY", "").strip('"').strip("'")
         
     if not endpoint or not api_key:
+        logger.error("Azure OpenAI credentials not configured.")
         return ChatResponse(reply="", error="Azure OpenAI credentials not configured")
 
     try:
@@ -109,9 +112,11 @@ async def chat_ask(req: ChatRequest):
             messages.append({"role": msg.get("role", "user"), "content": msg.get("content", "")})
         messages.append({"role": "user", "content": req.message})
 
+        logger.info(f"Sending LLM request to {deployment} with {len(messages)} messages...")
         response = client.chat.completions.create(
             model=deployment, messages=messages, max_completion_tokens=3000,
         )
+        logger.info(f"Successfully received LLM response length: {len(response.choices[0].message.content or '')}")
         reply = response.choices[0].message.content
         if not reply:
             choice = response.choices[0]
@@ -121,4 +126,5 @@ async def chat_ask(req: ChatRequest):
                 reply = "⚠️ AI ने खाली उत्तर दिया। कृपया सरल प्रश्न पूछें।"
         return ChatResponse(reply=reply)
     except Exception as e:
+        logger.error(f"AI Service Error during chat_ask: {str(e)}", exc_info=True)
         return ChatResponse(reply="", error=f"AI सेवा त्रुटि: {str(e)}")

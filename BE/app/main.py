@@ -8,17 +8,19 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+from app.logger import logger
+
 env_path = Path(__file__).parent.parent / "keys.env"
 if env_path.exists():
-    print(f"Loading .env from: {env_path}")
+    logger.info(f"Loading .env from: {env_path}")
     load_dotenv(dotenv_path=env_path, override=True)
 else:
     # Try default .env if keys.env is missing
     load_dotenv()
-    print("No keys.env found, using system environment variables.")
+    logger.info("No keys.env found, using system environment variables.")
 
-print("AZURE_OPENAI_ENDPOINT:", os.getenv("AZURE_OPENAI_ENDPOINT"))
-print("AZURE_OPENAI_API_KEY present:", bool(os.getenv("AZURE_OPENAI_API_KEY")))
+logger.info(f"AZURE_OPENAI_ENDPOINT: {os.getenv('AZURE_OPENAI_ENDPOINT')}")
+logger.info(f"AZURE_OPENAI_API_KEY present: {bool(os.getenv('AZURE_OPENAI_API_KEY'))}")
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

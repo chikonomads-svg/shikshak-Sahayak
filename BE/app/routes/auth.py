@@ -10,6 +10,8 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
+from app.logger import logger
+
 load_dotenv()
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
@@ -40,7 +42,7 @@ def _init_db():
         cursor.close()
         conn.close()
     except Exception as e:
-        print(f"PostgreSQL initialization deferred: {e}")
+        logger.error(f"PostgreSQL initialization deferred: {e}", exc_info=True)
 
 # Initialize DB on start if DB_URL is present
 _init_db()
@@ -77,8 +79,10 @@ def signup(req: SignupRequest):
         return AuthResponse(success=False, message="पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।")
 
     try:
+        logger.info(f"Signup attempt for email: {req.email.strip().lower()}")
         conn = _get_db()
     except Exception as e:
+        logger.error(f"Failed to connect to database during signup: {e}", exc_info=True)
         return AuthResponse(success=False, message=str(e))
 
     try:
@@ -92,15 +96,18 @@ def signup(req: SignupRequest):
         cursor.close()
         conn.close()
 
+        logger.info(f"User {user['id']} successfully registered: {user['email']}")
         return AuthResponse(
             success=True,
             message="खाता सफलतापूर्वक बन गया।",
             user=dict(user) if user else None
         )
     except psycopg2.IntegrityError:
+        logger.warning(f"Signup failed: Email already exists ({req.email.strip().lower()})")
         conn.close()
         return AuthResponse(success=False, message="यह ईमेल पहले से पंजीकृत है। कृपया लॉग इन करें।")
     except Exception as e:
+        logger.error(f"Signup error: {str(e)}", exc_info=True)
         conn.close()
         return AuthResponse(success=False, message=f"त्रुटि: {str(e)}")
 
@@ -112,8 +119,10 @@ def login(req: LoginRequest):
         return AuthResponse(success=False, message="ईमेल और पासवर्ड आवश्यक हैं।")
 
     try:
+        logger.info(f"Login attempt for email: {req.email.strip().lower()}")
         conn = _get_db()
     except Exception as e:
+        logger.error(f"Failed to connect to database during login: {e}", exc_info=True)
         return AuthResponse(success=False, message=str(e))
 
     try:
@@ -126,13 +135,18 @@ def login(req: LoginRequest):
         cursor.close()
         conn.close()
     except Exception as e:
+        logger.error(f"Login database error: {str(e)}", exc_info=True)
         return AuthResponse(success=False, message=f"त्रुटि: {str(e)}")
 
     if not user:
+        logger.warning(f"Login failed: No account found for email {req.email.strip().lower()}")
         return AuthResponse(success=False, message="इस ईमेल से कोई खाता नहीं मिला।")
 
     if user["password_hash"] != _hash_password(req.password):
+        logger.warning(f"Login failed: Incorrect password for email {req.email.strip().lower()}")
         return AuthResponse(success=False, message="गलत पासवर्ड।")
+
+    logger.info(f"Login successful for user: {user['email']}")
 
     return AuthResponse(
         success=True,

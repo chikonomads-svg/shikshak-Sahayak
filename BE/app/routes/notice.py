@@ -6,6 +6,8 @@ import os, time, httpx
 from typing import Any, Optional
 from fastapi import APIRouter
 
+from app.logger import logger
+
 router = APIRouter(prefix="/notice", tags=["सूचना (Notice)"])
 
 from typing import Any
@@ -26,6 +28,7 @@ NOTICE_QUERY = "Bihar Education Department Teacher Notice latest circular order"
 
 async def _fetch_notices(client, api_key):
     try:
+        logger.info("Fetching notices via Tavily advanced search...")
         # We append domains to the query to force Tavily to search them
         query_with_domains = NOTICE_QUERY + " " + " OR ".join([f"site:{d}" for d in DOMAINS])
         
@@ -83,7 +86,7 @@ async def _fetch_notices(client, api_key):
             
         return formatted_notices
     except Exception as e:
-        print(f"Error fetching notices: {str(e)}")
+        logger.error(f"Error fetching notices: {str(e)}", exc_info=True)
         return []
 
 @router.get("/feed")
@@ -99,6 +102,7 @@ async def notice_feed(category: Optional[str] = None):
 
     # Use cache if valid
     if _cache["data"] and (now - _cache["ts"]) < CACHE_TTL:
+        logger.info("Serving notice feed from cache.")
         notices = _cache["data"]
     else:
         async with httpx.AsyncClient(timeout=20) as client:

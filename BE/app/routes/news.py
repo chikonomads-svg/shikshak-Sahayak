@@ -5,6 +5,8 @@ GET /news/feed — Bihar teacher & education news in Hindi
 import os, time, httpx, re
 from fastapi import APIRouter
 
+from app.logger import logger
+
 router = APIRouter(prefix="/news", tags=["समाचार (News)"])
 
 from typing import Any
@@ -77,6 +79,7 @@ async def news_feed():
     """Fetch Bihar teacher & education news via Tavily."""
     now = time.time()
     if _cache["data"] and (now - _cache["ts"]) < CACHE_TTL:
+        logger.info("Serving news feed from cache.")
         return {"source": "cache", "sections": _cache["data"]}
 
     api_key = os.getenv("TAVILY_API_KEY", "")
@@ -84,6 +87,7 @@ async def news_feed():
         return {"error": "TAVILY_API_KEY not set", "sections": _fallback()}
 
     try:
+        logger.info("Fetching fresh news feed from Tavily API...")
         async with httpx.AsyncClient(timeout=15) as client:
             sections = []
             for q in QUERIES:
@@ -91,8 +95,10 @@ async def news_feed():
                 sections.append({"label": q["label"], "results": results})
         _cache["data"] = sections
         _cache["ts"] = now
+        logger.info("Successfully fetched and cached fresh news feed.")
         return {"source": "tavily", "sections": sections}
     except Exception as e:
+        logger.error(f"Error fetching news feed via Tavily: {str(e)}", exc_info=True)
         return {"source": "fallback", "error": str(e), "sections": _fallback()}
 
 

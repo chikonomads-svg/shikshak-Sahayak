@@ -12,6 +12,8 @@ from pydantic import BaseModel
 from openai import AzureOpenAI
 from app.data.subjects_data import SUBJECTS, get_topics
 
+from app.logger import logger
+
 router = APIRouter(prefix="/teach", tags=["पढ़ाएं (Teach)"])
 
 
@@ -83,6 +85,7 @@ async def list_subjects():
 @router.post("/generate")
 async def generate_questions(req: GenerateRequest):
     """Generate AI questions (MCQ / descriptive / Bihar Board pastpapers)."""
+    logger.info(f"Generating questions for {req.subject} | Class: {req.class_num} | Mode: {req.mode}")
     client, deployment, _ = _get_ai_client()
 
     subj = SUBJECTS.get(req.subject)
