@@ -121,8 +121,12 @@ export default function Chatbot() {
                     placeholder="अपना प्रश्न यहां लिखें (Write your question here)..."
                     disabled={isLoading}
                 />
-                <button type="submit" className="btn btn-primary send-btn" disabled={isLoading || !input.trim()}>
-                    <MdArrowUpward size={22} />
+                <button
+                    type="submit"
+                    className={`send-btn ${input.trim() && !isLoading ? 'active-send' : 'disabled-send'}`}
+                    disabled={isLoading || !input.trim()}
+                >
+                    <MdArrowUpward size={20} />
                 </button>
             </form>
         </div>
