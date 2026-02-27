@@ -19,7 +19,7 @@ def _get_db():
     if not db_url:
         raise Exception("DATABASE_URL is not set. Please add your Supabase connection string to the .env file.")
     # Return a connection with a cursor factory that allows dict-like access (like sqlite3.Row)
-    conn = psycopg2.connect(db_url, cursor_factory=psycopg2.extras.DictCursor)
+    conn = psycopg2.connect(db_url, cursor_factory=psycopg2.extras.DictCursor, connect_timeout=5)
     return conn
 
 def _init_db():
