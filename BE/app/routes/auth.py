@@ -14,13 +14,12 @@ load_dotenv()
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
-DB_URL = os.getenv("DATABASE_URL")
-
 def _get_db():
-    if not DB_URL:
+    db_url = os.getenv("DATABASE_URL")
+    if not db_url:
         raise Exception("DATABASE_URL is not set. Please add your Supabase connection string to the .env file.")
     # Return a connection with a cursor factory that allows dict-like access (like sqlite3.Row)
-    conn = psycopg2.connect(DB_URL, cursor_factory=psycopg2.extras.DictCursor)
+    conn = psycopg2.connect(db_url, cursor_factory=psycopg2.extras.DictCursor)
     return conn
 
 def _init_db():
