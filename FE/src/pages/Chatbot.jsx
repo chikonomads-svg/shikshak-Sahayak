@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MdSend, MdPerson, MdSmartToy, MdLanguage } from 'react-icons/md';
+import { MdArrowUpward, MdPerson, MdSmartToy, MdLanguage } from 'react-icons/md';
 import ReactMarkdown from 'react-markdown';
 import './Pages.css';
 import { API_BASE } from '../config';
@@ -122,7 +122,7 @@ export default function Chatbot() {
                     disabled={isLoading}
                 />
                 <button type="submit" className="btn btn-primary send-btn" disabled={isLoading || !input.trim()}>
-                    <MdSend size={20} />
+                    <MdArrowUpward size={22} />
                 </button>
             </form>
         </div>

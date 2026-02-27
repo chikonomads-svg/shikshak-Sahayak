@@ -8,7 +8,8 @@ import {
     MdSchool,
     MdMenuBook,
     MdCampaign,
-    MdLogout
+    MdLogout,
+    MdMenu
 } from 'react-icons/md';
 import './Layout.css';
 
@@ -32,6 +33,7 @@ const pageNames = {
 
 export default function Layout({ children }) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 1024);
     const location = useLocation();
     const navigate = useNavigate();
     const currentPageName = pageNames[location.pathname] || 'शिक्षक सहायक';
@@ -42,10 +44,15 @@ export default function Layout({ children }) {
     const initial = user.name ? user.name.charAt(0).toUpperCase() : 'श';
 
     useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        const handleResize = () => {
+            const mobile = window.innerWidth < 768;
+            setIsMobile(mobile);
+            if (mobile) setIsSidebarOpen(false);
+            else if (window.innerWidth >= 1024 && !isSidebarOpen) setIsSidebarOpen(true);
+        };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [isSidebarOpen]);
 
     const handleLogout = () => {
         localStorage.removeItem('shikshak_user');
@@ -54,12 +61,28 @@ export default function Layout({ children }) {
 
     return (
         <div className="app-container">
+            {/* Desktop Floating Toggle when sidebar is closed */}
+            {!isMobile && !isSidebarOpen && (
+                <button
+                    onClick={() => setIsSidebarOpen(true)}
+                    className="floating-sidebar-toggle"
+                    title="Open Sidebar"
+                >
+                    <MdMenu size={24} />
+                </button>
+            )}
+
             {/* Desktop Sidebar */}
             {!isMobile && (
-                <aside className="sidebar glass-panel">
-                    <div className="brand">
-                        <span className="brand-icon">📚</span>
-                        <h2 className="title-saffron">शिक्षक सहायक</h2>
+                <aside className={`sidebar glass-panel ${!isSidebarOpen ? 'collapsed' : ''}`}>
+                    <div className="brand" style={{ justifyContent: 'space-between', width: '100%', padding: '0 0.25rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                            <span className="brand-icon">📚</span>
+                            <h2 className="title-saffron">शिक्षक सहायक</h2>
+                        </div>
+                        <button onClick={() => setIsSidebarOpen(false)} className="btn-icon" style={{ padding: '4px' }} title="Hide Sidebar">
+                            <MdMenu size={22} />
+                        </button>
                     </div>
 
                     <nav className="nav-menu">
@@ -119,7 +142,7 @@ export default function Layout({ children }) {
             )}
 
             {/* Main Content Area */}
-            <main className="main-content">
+            <main className={`main-content ${!isSidebarOpen && !isMobile ? 'sidebar-closed' : ''}`}>
                 <motion.div
                     key={location.pathname}
                     initial={{ opacity: 0, y: 8 }}
