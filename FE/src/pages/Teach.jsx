@@ -165,6 +165,11 @@ export default function Teach() {
                                 <option value="math">गणित</option>
                             </select>
                         </div>
+                        <div className="btn-generate-row" style={{ flex: '0 0 auto', marginLeft: 'auto', alignSelf: 'flex-end' }}>
+                            <button type="button" className="btn btn-primary" onClick={() => { }}>
+                                <MdRefresh /> खोजें
+                            </button>
+                        </div>
                     </div>
 
                     <div className="pbl-grid">
