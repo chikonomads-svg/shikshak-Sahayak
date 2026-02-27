@@ -1359,3 +1359,159 @@
     color: #c9651a;
     text-decoration: underline;
 }
+
+/* ── PBL Section ─────────────────────────────────────────────── */
+.tab-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--p-border);
+    padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--p-text-muted);
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.tab-btn.active-tab {
+    color: var(--p-accent);
+}
+
+.tab-btn.active-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--p-accent);
+    border-radius: 3px 3px 0 0;
+}
+
+.pbl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.pbl-card {
+    background: var(--p-card);
+    border: 1px solid var(--p-border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.pbl-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--p-accent);
+}
+
+.pbl-card h3 {
+    font-size: 1.1rem;
+    color: var(--p-text);
+    margin: 0 0 0.5rem;
+}
+
+.pbl-card p {
+    font-size: 0.85rem;
+    color: var(--p-text-sub);
+    margin: 0 0 1rem;
+    flex: 1;
+}
+
+.pbl-tag-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pbl-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem;
+    overflow-y: auto;
+}
+
+.pbl-modal-content {
+    background: var(--p-card);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.pbl-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--p-border);
+    position: sticky;
+    top: 0;
+    background: var(--p-card);
+    z-index: 10;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.pbl-modal-body {
+    padding: 1.5rem;
+}
+
+.pbl-modal-body h2 {
+    color: var(--p-accent);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--p-border);
+    padding-bottom: 0.25rem;
+}
+
+.pbl-modal-body h3 {
+    color: var(--p-text);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.pbl-modal-body h2:first-child {
+    margin-top: 0;
+}
+
+.pbl-modal-body ul,
+.pbl-modal-body ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.pbl-modal-body li {
+    margin-bottom: 0.25rem;
+}
+
+.pbl-modal-body p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
