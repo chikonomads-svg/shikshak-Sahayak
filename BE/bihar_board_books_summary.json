@@ -1,0 +1,158 @@
+{
+  "total_books": 118,
+  "total_pdfs": 291,
+  "by_class": {
+    "Class I": {
+      "books": 10,
+      "pdfs": 33,
+      "subjects": [
+        "Urdu",
+        "science",
+        "EVS",
+        "Class V",
+        "Mathematics",
+        "BCF",
+        "Economics"
+      ]
+    },
+    "Class II": {
+      "books": 10,
+      "pdfs": 10,
+      "subjects": [
+        "Class VI",
+        "Class IV",
+        "Class I",
+        "Hindi",
+        "Biology",
+        "English"
+      ]
+    },
+    "Class III": {
+      "books": 10,
+      "pdfs": 10,
+      "subjects": [
+        "Chemistry",
+        "Class VI",
+        "Class IV",
+        "Class II",
+        "Class I",
+        "Hindi",
+        "Biology",
+        "Mathematics"
+      ]
+    },
+    "Class IV": {
+      "books": 10,
+      "pdfs": 33,
+      "subjects": [
+        "Class III",
+        "Class VI",
+        "Urdu",
+        "Class II",
+        "Class I",
+        "Biology",
+        "EVS"
+      ]
+    },
+    "Class V": {
+      "books": 10,
+      "pdfs": 35,
+      "subjects": [
+        "Unknown",
+        "Urdu",
+        "Class II",
+        "Class I",
+        "Biology",
+        "English",
+        "Computer Science",
+        "Mathematics"
+      ]
+    },
+    "Class VI": {
+      "books": 9,
+      "pdfs": 9,
+      "subjects": [
+        "Class IV",
+        "Class V",
+        "Mathematics",
+        "Class XII",
+        "Social Science"
+      ]
+    },
+    "Class VII": {
+      "books": 10,
+      "pdfs": 10,
+      "subjects": [
+        "Class IV",
+        "Class I",
+        "Class XII",
+        "Class V",
+        "Mathematics",
+        "BCF"
+      ]
+    },
+    "Class VIII": {
+      "books": 10,
+      "pdfs": 10,
+      "subjects": [
+        "Class XI",
+        "Civics",
+        "Class III",
+        "Class VI",
+        "Class IV",
+        "Class II",
+        "Class I",
+        "Science"
+      ]
+    },
+    "Class IX": {
+      "books": 9,
+      "pdfs": 9,
+      "subjects": [
+        "Class IV",
+        "science",
+        "History",
+        "Class V",
+        "Class XII",
+        "Economics"
+      ]
+    },
+    "Class X": {
+      "books": 10,
+      "pdfs": 22,
+      "subjects": [
+        "Political Science",
+        "Class IV",
+        "English",
+        "Science",
+        "Class V",
+        "Mathematics",
+        "BCF"
+      ]
+    },
+    "Class XI": {
+      "books": 10,
+      "pdfs": 68,
+      "subjects": [
+        "Chemistry",
+        "Class IV",
+        "Hindi",
+        "Class V",
+        "Mathematics",
+        "BCF",
+        "Physics"
+      ]
+    },
+    "Class XII": {
+      "books": 10,
+      "pdfs": 42,
+      "subjects": [
+        "Class IV",
+        "Hindi",
+        "Class V",
+        "Mathematics",
+        "BCF"
+      ]
+    }
+  }
+}

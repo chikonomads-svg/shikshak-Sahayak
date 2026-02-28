@@ -1,116 +1,234 @@
 """
-शिक्षक सहायक — Books Data
-Sample book data for Bihar Board Class 1–8
+Data models and database helper for Bihar Board Books
+Adapted for Shikshak Sahayak
 """
 
-BOOKS = [
-    # --- Class 1 ---
-    {"id": "b1-hindi", "class_num": 1, "subject": "hindi", "subject_name": "हिंदी", "title": "हिंदी बाल भारती", "icon": "📖",
-     "chapters": [
-         {"id": "ch1", "title": "अ से अनार", "content": "# अ से अनार\n\nइस पाठ में हम हिंदी वर्णमाला के स्वरों को सीखेंगे।\n\n**स्वर:** अ, आ, इ, ई, उ, ऊ, ए, ऐ, ओ, औ, अं, अः\n\n## अभ्यास\n- अ से अनार\n- आ से आम\n- इ से इमली\n- ई से ईख"},
-         {"id": "ch2", "title": "क से कबूतर", "content": "# क से कबूतर\n\nव्यंजन सीखें:\n\n**क वर्ग:** क, ख, ग, घ, ङ\n**च वर्ग:** च, छ, ज, झ, ञ\n\n## अभ्यास\n- क से कबूतर\n- ख से खरगोश\n- ग से गमला"},
-     ]},
-    {"id": "b1-math", "class_num": 1, "subject": "math", "subject_name": "गणित", "title": "गणित का जादू", "icon": "🔢",
-     "chapters": [
-         {"id": "ch1", "title": "गिनती 1-10", "content": "# गिनती 1 से 10\n\n१ - एक 🍎\n२ - दो 🍎🍎\n३ - तीन 🍎🍎🍎\n४ - चार\n५ - पांच\n\n## अभ्यास\nगिनती करो और लिखो।"},
-         {"id": "ch2", "title": "जोड़", "content": "# जोड़ना सीखें\n\n2 + 3 = 5\n4 + 1 = 5\n\n## अभ्यास\n- 1 + 2 = ?\n- 3 + 4 = ?\n- 5 + 5 = ?"},
-     ]},
-    # --- Class 2 ---
-    {"id": "b2-hindi", "class_num": 2, "subject": "hindi", "subject_name": "हिंदी", "title": "हिंदी रिमझिम", "icon": "📖",
-     "chapters": [
-         {"id": "ch1", "title": "ऊंट चला", "content": "# ऊंट चला\n\nऊंट चला, ऊंट चला\nरेगिस्तान में ऊंट चला।\n\n## शब्दार्थ\n- ऊंट: रेगिस्तान का जानवर\n- रेगिस्तान: बालू का मैदान"},
-         {"id": "ch2", "title": "भालू ने खेली फुटबॉल", "content": "# भालू ने खेली फुटबॉल\n\nएक दिन जंगल में भालू ने फुटबॉल खेली।\n\n## प्रश्न\n1. भालू ने क्या खेला?\n2. भालू कहाँ रहता है?"},
-     ]},
-    {"id": "b2-math", "class_num": 2, "subject": "math", "subject_name": "गणित", "title": "गणित का जादू-2", "icon": "🔢",
-     "chapters": [
-         {"id": "ch1", "title": "गुणा", "content": "# गुणा सीखें\n\n2 × 3 = 6\n5 × 4 = 20\n\n## पहाड़ा (2 का)\n2 × 1 = 2\n2 × 2 = 4\n2 × 3 = 6\n2 × 4 = 8\n2 × 5 = 10"},
-     ]},
-    # --- Class 3 ---
-    {"id": "b3-hindi", "class_num": 3, "subject": "hindi", "subject_name": "हिंदी", "title": "हिंदी दूर्वा", "icon": "📖",
-     "chapters": [
-         {"id": "ch1", "title": "कक्कू", "content": "# कक्कू\n\nकक्कू एक छोटा लड़का है। वह रोज़ स्कूल जाता है।\n\n## प्रश्न\n1. कक्कू कौन है?\n2. कक्कू रोज़ कहाँ जाता है?"},
-     ]},
-    {"id": "b3-science", "class_num": 3, "subject": "science", "subject_name": "विज्ञान", "title": "आस-पास", "icon": "🔬",
-     "chapters": [
-         {"id": "ch1", "title": "पदार्थ और उनके गुण", "content": "# पदार्थ और उनके गुण\n\nहमारे चारों ओर अनेक वस्तुएं हैं। ये सभी पदार्थ से बनी हैं।\n\n## पदार्थ के प्रकार\n1. **ठोस** - पत्थर, लकड़ी\n2. **द्रव** - पानी, दूध\n3. **गैस** - हवा, ऑक्सीजन"},
-     ]},
-    # --- Class 4 ---
-    {"id": "b4-math", "class_num": 4, "subject": "math", "subject_name": "गणित", "title": "गणित-4", "icon": "🔢",
-     "chapters": [
-         {"id": "ch1", "title": "बड़ी संख्याएं", "content": "# बड़ी संख्याएं\n\n## स्थानीय मान\n- इकाई, दहाई, सैकड़ा, हज़ार, दस हज़ार, लाख\n\n## उदाहरण\n23,456 = 2 दस हज़ार + 3 हज़ार + 4 सौ + 5 दहाई + 6 इकाई"},
-     ]},
-    # --- Class 5 ---
-    {"id": "b5-hindi", "class_num": 5, "subject": "hindi", "subject_name": "हिंदी", "title": "रिमझिम-5", "icon": "📖",
-     "chapters": [
-         {"id": "ch1", "title": "राख की रस्सी", "content": "# राख की रस्सी\n\nअकबर-बीरबल की प्रसिद्ध कहानी।\n\n## कहानी\nएक बार अकबर ने बीरबल से कहा..."},
-     ]},
-    {"id": "b5-science", "class_num": 5, "subject": "science", "subject_name": "विज्ञान", "title": "विज्ञान-5", "icon": "🔬",
-     "chapters": [
-         {"id": "ch1", "title": "कोशिका", "content": "# कोशिका — जीवन की इकाई\n\nसभी जीवित प्राणी कोशिकाओं से बने हैं।\n\n## कोशिका के भाग\n1. कोशिका झिल्ली\n2. कोशिका द्रव्य\n3. केन्द्रक"},
-     ]},
-    # --- Class 6 ---
-    {"id": "b6-hindi", "class_num": 6, "subject": "hindi", "subject_name": "हिंदी", "title": "वसंत भाग-1", "icon": "📖",
-     "chapters": [
-         {"id": "ch1", "title": "वह चिड़िया जो", "content": "# वह चिड़िया जो\n\n— केदारनाथ अग्रवाल\n\nवह चिड़िया जो—\nचोंच मारकर\nदूध-भरे जुंडी के दाने\nरुचि से, रस से खाती है\nवह छोटी संतोषी चिड़िया\nनीले पंखों वाली मैं हूँ"},
-     ]},
-    {"id": "b6-math", "class_num": 6, "subject": "math", "subject_name": "गणित", "title": "गणित-6", "icon": "🔢",
-     "chapters": [
-         {"id": "ch1", "title": "पूर्णांक", "content": "# पूर्णांक\n\n## परिभाषा\nधनात्मक, ऋणात्मक संख्याएं और शून्य मिलकर पूर्णांक कहलाते हैं।\n\n**पूर्णांक:** ..., -3, -2, -1, 0, 1, 2, 3, ...\n\n## संक्रियाएं\n- (-3) + 5 = 2\n- 4 + (-7) = -3"},
-     ]},
-    {"id": "b6-sanskrit", "class_num": 6, "subject": "sanskrit", "subject_name": "संस्कृत", "title": "रुचिरा भाग-1", "icon": "🕉️",
-     "chapters": [
-         {"id": "ch1", "title": "शब्द परिचय", "content": "# शब्द परिचय\n\n## संस्कृत वर्णमाला\nअ आ इ ई उ ऊ ऋ\nक ख ग घ ङ\nच छ ज झ ञ\n\n## सरल वाक्य\n- एषः बालकः। (यह लड़का है।)\n- एषा बालिका। (यह लड़की है।)"},
-     ]},
-    # --- Class 7 ---
-    {"id": "b7-science", "class_num": 7, "subject": "science", "subject_name": "विज्ञान", "title": "विज्ञान-7", "icon": "🔬",
-     "chapters": [
-         {"id": "ch1", "title": "रासायनिक अभिक्रियाएं", "content": "# रासायनिक अभिक्रियाएं\n\n## परिभाषा\nजब दो या अधिक पदार्थ मिलकर नए पदार्थ बनाते हैं।\n\n## उदाहरण\n- लोहे में जंग लगना\n- दूध से दही बनना\n- भोजन पकाना"},
-     ]},
-    {"id": "b7-social", "class_num": 7, "subject": "social_science", "subject_name": "सामाजिक विज्ञान", "title": "सामाजिक विज्ञान-7", "icon": "🌍",
-     "chapters": [
-         {"id": "ch1", "title": "स्वतंत्रता संग्राम", "content": "# भारतीय स्वतंत्रता संग्राम\n\n## प्रमुख घटनाएं\n1. 1857 का विद्रोह\n2. 1919 जलियांवाला बाग\n3. 1930 नमक सत्याग्रह\n4. 1942 भारत छोड़ो आंदोलन\n5. 15 अगस्त 1947 — स्वतंत्रता"},
-     ]},
-    # --- Class 8 ---
-    {"id": "b8-hindi", "class_num": 8, "subject": "hindi", "subject_name": "हिंदी", "title": "वसंत भाग-3", "icon": "📖",
-     "chapters": [
-         {"id": "ch1", "title": "ध्वनि", "content": "# ध्वनि\n— सूर्यकान्त त्रिपाठी 'निराला'\n\nअभी न होगा मेरा अंत\nअभी-अभी ही तो आया है\nमेरे वन में मृदुल वसंत—\nअभी न होगा मेरा अंत"},
-     ]},
-    {"id": "b8-math", "class_num": 8, "subject": "math", "subject_name": "गणित", "title": "गणित-8", "icon": "🔢",
-     "chapters": [
-         {"id": "ch1", "title": "वर्गमूल और घनमूल", "content": "# वर्गमूल और घनमूल\n\n## वर्गमूल\n√4 = 2, √9 = 3, √16 = 4, √25 = 5\n\n## घनमूल\n∛8 = 2, ∛27 = 3, ∛64 = 4\n\n## विधि\nअभाज्य गुणनखंड विधि से वर्गमूल ज्ञात करें"},
-     ]},
-    {"id": "b8-science", "class_num": 8, "subject": "science", "subject_name": "विज्ञान", "title": "विज्ञान-8", "icon": "🔬",
-     "chapters": [
-         {"id": "ch1", "title": "परमाणु संरचना", "content": "# परमाणु संरचना\n\n## भाग\n1. **प्रोटॉन** (+) — नाभिक में\n2. **न्यूट्रॉन** (0) — नाभिक में\n3. **इलेक्ट्रॉन** (-) — कक्षा में\n\n## परमाणु क्रमांक\nप्रोटॉनों की संख्या = परमाणु क्रमांक"},
-     ]},
-]
+import json
+from typing import List, Dict, Optional
+from pathlib import Path
+import re
+
+class BooksDataManager:
+    """Manage books data for FastAPI integration"""
+    
+    def __init__(self, data_file: str = None):
+        if data_file is None:
+            # Resolve to BE/app/data/bihar_board_books.json
+            base_dir = Path(__file__).parent
+            self.data_file = str(base_dir / "bihar_board_books.json")
+        else:
+            self.data_file = data_file
+            
+        self.books_data = []
+        self.load_data()
+    
+    def load_data(self):
+        """Load books data from JSON file"""
+        try:
+            with open(self.data_file, 'r', encoding='utf-8') as f:
+                self.books_data = json.load(f)
+        except FileNotFoundError:
+            self.books_data = []
+    
+    def save_data(self):
+        """Save books data to JSON file"""
+        with open(self.data_file, 'w', encoding='utf-8') as f:
+            json.dump(self.books_data, f, indent=2, ensure_ascii=False)
+    
+    def get_all_books(self) -> List[Dict]:
+        """Get all books"""
+        self.load_data()
+        return self.books_data
+    
+    def get_books_by_class(self, class_num: int) -> List[Dict]:
+        """Get books filtered by class number"""
+        self.load_data()
+        class_name = f"Class {self._int_to_roman(class_num) if class_num <= 10 else class_num}"
+        return [
+            book for book in self.books_data 
+            if class_name.lower() in book.get('class', '').lower()
+        ]
+    
+    def get_books_by_subject(self, subject: str) -> List[Dict]:
+        """Get books filtered by subject"""
+        return [
+            book for book in self.books_data
+            if subject.lower() in book.get('subject', '').lower()
+        ]
+    
+    def get_book_by_id(self, book_id: str) -> Optional[Dict]:
+        """Get a single book by ID"""
+        for book in self.books_data:
+            if self._generate_book_id(book) == book_id:
+                return book
+        return None
+    
+    def search_books(self, query: str) -> List[Dict]:
+        """Search books by title, subject, or class"""
+        query = query.lower()
+        results = []
+        
+        for book in self.books_data:
+            if (query in book.get('book_title', '').lower() or
+                query in book.get('subject', '').lower() or
+                query in book.get('class', '').lower()):
+                results.append(book)
+        
+        return results
+    
+    def get_subjects_by_class(self, class_num: int) -> List[str]:
+        """Get all unique subjects for a class"""
+        books = self.get_books_by_class(class_num)
+        subjects = set(book.get('subject', '') for book in books)
+        return sorted(list(subjects))
+    
+    def get_statistics(self) -> Dict:
+        """Get statistics about the books database"""
+        stats = {
+            'total_books': len(self.books_data),
+            'total_pdfs': sum(book.get('total_pdfs', 0) for book in self.books_data),
+            'classes': {},
+            'subjects': set()
+        }
+        
+        for book in self.books_data:
+            class_name = book.get('class', 'Unknown')
+            subject = book.get('subject', 'Unknown')
+            
+            stats['subjects'].add(subject)
+            
+            if class_name not in stats['classes']:
+                stats['classes'][class_name] = {
+                    'books': 0,
+                    'pdfs': 0,
+                    'subjects': set()
+                }
+            
+            stats['classes'][class_name]['books'] += 1
+            stats['classes'][class_name]['pdfs'] += book.get('total_pdfs', 0)
+            stats['classes'][class_name]['subjects'].add(subject)
+        
+        # Convert sets to lists
+        stats['subjects'] = sorted(list(stats['subjects']))
+        for class_data in stats['classes'].values():
+            class_data['subjects'] = sorted(list(class_data['subjects']))
+        
+        return stats
+    
+    def _generate_book_id(self, book: Dict) -> str:
+        """Generate unique ID for a book"""
+        title = book.get('book_title', 'unknown')
+        class_name = book.get('class', 'unknown')
+        subject = book.get('subject', 'unknown')
+        
+        id_string = f"{class_name}_{subject}_{title}".lower()
+        id_string = ''.join(c if c.isalnum() else '_' for c in id_string)
+        return id_string
+    
+    def _int_to_roman(self, num: int) -> str:
+        """Convert integer to Roman numeral"""
+        val = [
+            1000, 900, 500, 400,
+            100, 90, 50, 40,
+            10, 9, 5, 4, 1
+        ]
+        syms = [
+            'M', 'CM', 'D', 'CD',
+            'C', 'XC', 'L', 'XL',
+            'X', 'IX', 'V', 'IV', 'I'
+        ]
+        roman_num = ''
+        i = 0
+        while num > 0:
+            for _ in range(num // val[i]):
+                roman_num += syms[i]
+                num -= val[i]
+            i += 1
+        return roman_num
+    
+    def format_for_api(self, book: Dict) -> Dict:
+        """Format book data for API response"""
+        return {
+            'id': self._generate_book_id(book),
+            'class_num': self._extract_class_number(book.get('class', '')),
+            'class_name': book.get('class', 'Unknown'),
+            'subject': book.get('subject', 'Unknown'),
+            'title': book.get('book_title', 'Unknown'),
+            'url': book.get('book_url', ''),
+            'total_pdfs': book.get('total_pdfs', 0),
+            'chapters': self._format_chapters(book.get('chapters', [])),
+            'all_pdfs': book.get('all_pdfs', [])
+        }
+    
+    def _extract_class_number(self, class_str: str) -> int:
+        """Extract numeric class number from class string"""
+        match = re.search(r'\d+', class_str)
+        if match:
+            return int(match.group())
+        
+        roman_map = {
+            'XII': 12, 'XI': 11, 'IX': 9, 'VIII': 8, 'VII': 7, 
+            'VI': 6, 'IV': 4, 'V': 5, 'III': 3, 'II': 2, 'I': 1, 'X': 10
+        }
+        
+        class_upper = class_str.upper()
+        # Sort by length descending to match XII before X, etc.
+        for roman in sorted(roman_map.keys(), key=len, reverse=True):
+            if roman in class_upper.split():
+                return roman_map[roman]
+                
+        return 0
+    
+    def _format_chapters(self, chapters: List) -> List[Dict]:
+        """Format chapters data"""
+        if not chapters:
+            return []
+        
+        formatted = []
+        for i, chapter in enumerate(chapters, 1):
+            formatted.append({
+                'chapter_number': i,
+                'chapter_name': chapter.get('chapter_name', f'Chapter {i}'),
+                'pdfs': chapter.get('pdfs', [])
+            })
+        
+        return formatted
 
 
 def get_all_books():
-    return [
-        {"id": b["id"], "class_num": b["class_num"], "subject": b["subject"],
-         "subject_name": b["subject_name"], "title": b["title"], "icon": b["icon"],
-         "chapter_count": len(b["chapters"])}
-        for b in BOOKS
-    ]
+    """Get all books (for FastAPI route)"""
+    manager = BooksDataManager()
+    return [manager.format_for_api(book) for book in manager.get_all_books()]
 
 
-def get_book_by_id(book_id):
-    for b in BOOKS:
-        if b["id"] == book_id:
-            return {
-                "id": b["id"], "class_num": b["class_num"], "subject": b["subject"],
-                "subject_name": b["subject_name"], "title": b["title"], "icon": b["icon"],
-                "chapters": [{"id": c["id"], "title": c["title"]} for c in b["chapters"]],
-            }
+def get_book_by_id(book_id: str):
+    """Get book by ID (for FastAPI route)"""
+    manager = BooksDataManager()
+    book = manager.get_book_by_id(book_id)
+    if book:
+        return manager.format_for_api(book)
     return None
 
 
-def get_chapter_content(book_id, chapter_id):
-    for b in BOOKS:
-        if b["id"] == book_id:
-            for c in b["chapters"]:
-                if c["id"] == chapter_id:
-                    return {"book_title": b["title"], "chapter_id": c["id"],
-                            "chapter_title": c["title"], "content": c["content"]}
+def get_chapter_content(book_id: str, chapter_id: str):
+    """Get chapter content (for FastAPI route)"""
+    manager = BooksDataManager()
+    book = manager.get_book_by_id(book_id)
+    
+    if not book or not book.get('chapters'):
+        return None
+    
+    try:
+        chapter_index = int(chapter_id) - 1
+        if 0 <= chapter_index < len(book['chapters']):
+            chapter = book['chapters'][chapter_index]
+            return {
+                'chapter_number': int(chapter_id),
+                'chapter_name': chapter.get('chapter_name', ''),
+                'pdfs': chapter.get('pdfs', []),
+                'book_title': book.get('book_title', '')
+            }
+    except (ValueError, IndexError):
+        pass
+    
     return None

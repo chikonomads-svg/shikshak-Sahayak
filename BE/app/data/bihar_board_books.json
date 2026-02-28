@@ -1,0 +1,19 @@
+[
+    {"class": "Class I", "subject": "hindi", "book_title": "हिंदी बाल भारती", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class I", "subject": "math", "book_title": "गणित का जादू", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class II", "subject": "hindi", "book_title": "हिंदी रिमझिम", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class II", "subject": "math", "book_title": "गणित का जादू-2", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class III", "subject": "hindi", "book_title": "हिंदी दूर्वा", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class III", "subject": "science", "book_title": "आस-पास", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class IV", "subject": "math", "book_title": "गणित-4", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class V", "subject": "hindi", "book_title": "रिमझिम-5", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class V", "subject": "science", "book_title": "विज्ञान-5", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class VI", "subject": "hindi", "book_title": "वसंत भाग-1", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class VI", "subject": "math", "book_title": "गणित-6", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class VI", "subject": "sanskrit", "book_title": "रुचिरा भाग-1", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class VII", "subject": "science", "book_title": "विज्ञान-7", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class VII", "subject": "social_science", "book_title": "सामाजिक विज्ञान-7", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class VIII", "subject": "hindi", "book_title": "वसंत भाग-3", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class VIII", "subject": "math", "book_title": "गणित-8", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1},
+    {"class": "Class VIII", "subject": "science", "book_title": "विज्ञान-8", "book_url": "", "chapters": [], "all_pdfs": [{"url": "dummy", "title": "Dummy"}], "total_pdfs": 1}
+]

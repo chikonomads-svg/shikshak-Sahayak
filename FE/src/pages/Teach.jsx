@@ -11,9 +11,10 @@ export default function Teach() {
     const [subjectsData, setSubjectsData] = useState(null);
     const [activeTab, setActiveTab] = useState('quiz'); // 'quiz' or 'pbl'
     const [selectedPbl, setSelectedPbl] = useState(null);
+    const [filteredPbls, setFilteredPbls] = useState([]);
 
     // Form state
-    const [selectedClass, setSelectedClass] = useState('5');
+    const [selectedClass, setSelectedClass] = useState('6');
     const [selectedSubject, setSelectedSubject] = useState('math');
     const [topic, setTopic] = useState('');
     const [mode, setMode] = useState('mcq');
@@ -166,26 +167,35 @@ export default function Teach() {
                             </select>
                         </div>
                         <div className="btn-generate-row" style={{ flex: '0 0 auto', marginLeft: 'auto', alignSelf: 'flex-end' }}>
-                            <button type="button" className="btn btn-primary" onClick={() => { }}>
+                            <button type="button" className="btn btn-primary" onClick={() => {
+                                const results = pblProjects.filter(p =>
+                                    p.class_num === `कक्षा ${selectedClass}` &&
+                                    (selectedSubject === 'science' ? p.subject === 'विज्ञान' : p.subject === 'गणित')
+                                );
+                                setFilteredPbls(results);
+                            }}>
                                 <MdRefresh /> खोजें
                             </button>
                         </div>
                     </div>
 
                     <div className="pbl-grid">
-                        {pblProjects
-                            .filter(p => String(p.class_num) === String(selectedClass) &&
-                                (selectedSubject === 'science' ? p.subject === 'विज्ञान' : p.subject === 'गणित'))
-                            .map((p) => (
+                        {filteredPbls.length === 0 ? (
+                            <div className="text-center w-full" style={{ gridColumn: '1 / -1', color: '#666' }}>
+                                खोजना प्रारंभ करने के लिए ऊपरी 'खोजें' बटन पर क्लिक करें।
+                            </div>
+                        ) : (
+                            filteredPbls.map((p) => (
                                 <div key={p.id} className="pbl-card" onClick={() => setSelectedPbl(p)}>
                                     <h3>{p.title}</h3>
                                     <p>{p.description}</p>
                                     <div className="pbl-tag-row">
-                                        <span className="badge badge-low">कक्षा {p.class_num}</span>
+                                        <span className="badge badge-low">कक्षा {p.class_num.replace('कक्षा ', '')}</span>
                                         <span className="badge badge-medium">{p.subject}</span>
                                     </div>
                                 </div>
-                            ))}
+                            ))
+                        )}
                     </div>
 
                     {/* PBL Modal */}
