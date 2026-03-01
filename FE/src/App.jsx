@@ -8,6 +8,7 @@ import Books from './pages/Books';
 import Notice from './pages/Notice';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Features from './pages/Features';
 
 // Protected Route Wrapper
 function ProtectedRoute({ children }) {
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/teach" element={<ProtectedRoute><Teach /></ProtectedRoute>} />
                 <Route path="/books" element={<ProtectedRoute><Books /></ProtectedRoute>} />
                 <Route path="/notice" element={<ProtectedRoute><Notice /></ProtectedRoute>} />
+                <Route path="/features" element={<ProtectedRoute><Features /></ProtectedRoute>} />
 
                 {/* Fallback */}
                 <Route path="*" element={<Navigate to="/" replace />} />

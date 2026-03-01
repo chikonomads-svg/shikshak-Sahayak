@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { MdChatBubbleOutline, MdArticle, MdSchool, MdMenuBook, MdCampaign, MdArrowForward } from 'react-icons/md';
+import { MdChatBubbleOutline, MdArticle, MdSchool, MdMenuBook, MdCampaign, MdArrowForward, MdStar } from 'react-icons/md';
 import './Pages.css';
 
 export default function Dashboard() {
@@ -20,7 +20,8 @@ export default function Dashboard() {
         { title: 'शिक्षक समाचार', desc: 'बिहार शिक्षा विभाग की ताज़ा खबरें', icon: <MdArticle size={32} />, path: '/news', color: '#F59E0B' },
         { title: 'पढ़ाएं (MCQ जनरेटर)', desc: 'AI द्वारा कक्षा 1-8 के लिए प्रश्न निर्माण', icon: <MdSchool size={32} />, path: '/teach', color: '#10B981' },
         { title: 'डिजिटल किताबें', desc: 'कक्षा 1-8 की पाठ्यपुस्तकें आसानी से पढ़ें', icon: <MdMenuBook size={32} />, path: '/books', color: '#8B5CF6' },
-        { title: 'महत्वपूर्ण सूचनाएं', desc: 'वेतन, स्थानांतरण, और छुट्टियों के आदेश', icon: <MdCampaign size={32} />, path: '/notice', color: '#EF4444' }
+        { title: 'महत्वपूर्ण सूचनाएं', desc: 'वेतन, स्थानांतरण, और छुट्टियों के आदेश', icon: <MdCampaign size={32} />, path: '/notice', color: '#EF4444' },
+        { title: 'वर्तमान विशेषताएँ', desc: 'ऐप की सभी सुविधाओं और आगामी अपडेट्स की सूची', icon: <MdStar size={32} />, path: '/features', color: '#EC4899' }
     ];
 
     return (

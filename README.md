@@ -1,92 +1,86 @@
-# शिक्षक सहायक (Shikshak Sahayak) — Bihar Board Teachers App
+# Shikshak Sahayak (शिक्षक सहायक)
+**The Ultimate Digital Companion for Bihar Board Teachers**
 
-A real-time educational tool and assistant designed for Bihar Board government teachers, featuring an AI chatbot, news feed, MCQ problem generator, digital books, and important notices.
-
-## 🚀 Quick Start
-
-### Backend (FastAPI - Python)
-
-1. Navigate to the `BE` directory:
-   ```bash
-   cd BE
-   ```
-
-2. Create a virtual environment (optional but recommended):
-   ```bash
-   python -m venv venv
-   source venv/bin/activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Create an environment file:
-   Copy `.env.example` to `.env` and fill in your Azure OpenAI and Tavily API keys.
-
-5. Run the server:
-   ```bash
-   uvicorn app.main:app --reload --port 8001
-   ```
-   - API Docs: http://localhost:8001/docs
-   - Health Check: http://localhost:8001/health
-
-### Frontend (React + Vite)
-
-1. Navigate to the `FE` directory:
-   ```bash
-   cd FE
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-   - Access the app at: http://localhost:5173
-
-## 🛠️ Tech Stack
-- **Backend**: Python, FastAPI, Uvicorn, Azure OpenAI (for chatbot/MCQ), Tavily API (for news).
-- **Frontend**: React, Vite, React Router, Framer Motion, Tailwind-like custom CSS (Glassmorphism layout).
-
-## 🌍 Platform Features
-- **डैशबोर्ड (Dashboard)**: At-a-glance view of news, notices, and quick access.
-- **चैटबॉट (AI Chatbot)**: Ask any teaching or curriculum-related questions in Hindi or English.
-- **समाचार (News)**: Real-time Bihar education sector news strictly filtered in Hindi.
-- **पढ़ाएं (Teach/MCQ)**: AI-powered class 1-8 syllabus-based quiz and descriptive question generator.
-- **किताबें (Books)**: Read digital copies of textbooks for all subjects.
-- **सूचना (Notice)**: Important circulars from the Bihar Education Department.
+Shikshak Sahayak is a state-of-the-art educational application tailored specifically for the educators of the Bihar School Examination Board (BSEB). Built on modern architecture (FastAPI Backend + React Frontend + PostgreSQL), it leverages cutting-edge AI and advanced data capabilities to bring the entire Bihar education ecosystem into the palms of teachers' hands.
 
 ---
 
-## ☁️ Deployment Guide
+## 🌟 Value Proposition for the Bihar Board
+As the Bihar Board rapidly modernizes its digital infrastructure, **Shikshak Sahayak** provides a ready-made, highly scalable tool to empower its largest asset: **The Teachers**.
 
-### Setting Environment Variables (.env variables)
+By consolidating lesson planning, textbook access, departmental notices, and AI assistance into a single unified dashboard, Shikshak Sahayak dramatically reduces administrative overhead, allowing teachers to focus entirely on what matters most—student outcomes in the classroom.
 
-When deploying to production, local `.env` files are ignored. You must configure these variables explicitly in your hosting provider's dashboard.
+### Core Objectives:
+1. **Reduce Preparation Time:** AI-generated lesson plans and quizzes.
+2. **Centralize Information:** Instant access to departmental notices, transfer orders, salary updates, and educational news.
+3. **Universal Access:** A complete, mapped digital library of all BSEB prescribed textbooks and solutions from Class 1 to 8.
 
-#### 1. Backend on Render 🟢
-1. Go to your Web Service dashboard on Render.
-2. Navigate to **Environment** (or Environment Variables).
-3. Add the following keys (copy values from your local `BE/.env`):
-   - `AZURE_OPENAI_API_KEY`
-   - `AZURE_OPENAI_ENDPOINT`
-   - `AZURE_OPENAI_DEPLOYMENT_NAME`
-   - `AZURE_OPENAI_API_VERSION`
-   - `TAVILY_API_KEY`
-4. Deploy the latest commit.
+---
 
-#### 2. Frontend on Vercel 🔺
-1. Go to your Project settings on Vercel.
-2. Navigate to **Settings** > **Environment Variables**.
-3. Add a new variable:
-   - **Key**: `VITE_API_URL`
-   - **Value**: `https://<YOUR_RENDER_BACKEND_URL>.onrender.com` *(Make sure to remove any trailing slashes)*
-4. Go to **Deployments** and click **Redeploy**.
+## 🚀 Key Features
 
-> *Note: The frontend code relies on the `VITE_API_URL` to know where the backend is hosted. If not set, it will default to `/api` which only works on your local developer machine.*
+### 1. 🤖 AI Teaching Assistant (चैटबॉट / Chatbot)
+- **Context-Aware Assistance:** Powered by advanced Large Language Models, the bot answers curriculum-specific queries, explains complex pedagogical concepts, and helps draft school communications.
+- **24/7 Availability:** A virtual peer available to guide teachers around the clock.
+
+### 2. 📝 Automated Lesson Planner (पढ़ाएं / Teach)
+- **MCQ & Quiz Generation:** Automatically generates multiple-choice questions, descriptive assignments, and grading keys tailored for specified grade levels and subjects.
+- **Smart Rubrics:** Provides AI-backed suggestions for evaluation metrics.
+
+### 3. 📚 Comprehensive Digital Library (डिजिटल किताबें)
+- **Classes 1-8 Covered:** Complete digital repository mapped to official BSEB textbooks (e.g., *Radiance, Blossom, Kislay, Amrita*).
+- **One-Click Downloads:** Direct links to officially hosted PDFs for both the course materials and their respective solutions.
+- **Integrated Storage:** Beautiful UI mappings removing the complexity of external website navigations.
+
+### 4. 📢 Real-Time Notice Board & News Tracker (सूचना और समाचार)
+- **Live Aggregator:** Automatically fetches, cleans, and structures live notices from the Bihar government education portals.
+- **Categorized Updates:** Separates generic news from urgent notices (holidays, salary dispatches, transfer policies).
+
+### 5. 🔒 Robust Security & User Profiles
+- **PostgreSQL Powered:** A highly secure cloud database manages educator profiles and authentication.
+- **Encrypted Credentials:** State-of-the-art SHA-256 password hashing.
+
+---
+
+## 🛠 Technology Stack
+
+### Backend
+- **Framework:** Python / FastAPI
+- **Database:** PostgreSQL (Supabase integration)
+- **AI/LLM:** Localized Chat/AI Engine proxying
+- **Utilities:** BeautifulSoup4 (Web Scraping), Uvicorn
+
+### Frontend
+- **Framework:** React / Vite
+- **Styling:** Vanilla CSS + Tailwind CSS utilities with Glassmorphism UI
+- **Animations:** Framer Motion for premium UX
+
+---
+
+## 💻 Running the Project
+
+### Prerequisites
+- Node.js (v18+)
+- Python (3.10+)
+- A valid PostgreSQL database URL
+
+### Start the Backend
+```bash
+cd BE
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+# Set DATABASE_URL and LLM API KEYS in .env
+uvicorn app.main:app --reload --port 8000
+```
+
+### Start the Frontend
+```bash
+cd FE
+npm install
+npm run dev
+```
+
+---
+
+*For business inquiries, demo requests, and integration potentials with BSEB server infrastructures, please refer to the deployment instructions or contact the lead architect.*
