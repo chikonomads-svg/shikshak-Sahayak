@@ -61,74 +61,107 @@ export default function Chatbot() {
     ];
 
     return (
-        <div className="chat-container">
-            <div className="chat-header glass-panel">
-                <div className="chat-title-row">
-                    <MdSmartToy size={28} className="text-saffron" />
+        <div className="flex flex-col h-[calc(100vh-120px)] md:h-[calc(100vh-80px)] max-w-4xl mx-auto bg-surface relative">
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 bg-white border-b border-gray-100 shadow-sm rounded-t-2xl z-10 relative">
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center">
+                        <MdSmartToy size={24} />
+                    </div>
                     <div>
-                        <h2 style={{ margin: 0, fontSize: '1.2rem' }}>AI शिक्षक सहायक</h2>
-                        <span className="chat-status">ऑनलाइन (Online)</span>
+                        <h2 className="text-lg font-bold text-gray-800 leading-tight">AI शिक्षक सहायक</h2>
+                        <div className="flex items-center gap-2 text-xs font-medium text-emerald-600">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            ऑनलाइन (Online)
+                        </div>
                     </div>
                 </div>
-                <button className="btn-icon" title="Language Toggle (English/Hindi Support Built-in)">
-                    <MdLanguage size={24} />
+                <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" title="Language Toggle (English/Hindi Support Built-in)">
+                    <MdLanguage size={22} />
                 </button>
             </div>
 
-            <div className="chat-messages glass-panel">
+            {/* Chat Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-6 bg-slate-50/50">
                 <AnimatePresence>
-                    {messages.map((msg, idx) => (
-                        <motion.div
-                            key={idx}
-                            className={`message-wrapper ${msg.role === 'user' ? 'message-user' : 'message-ai'}`}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                        >
-                            <div className="message-avatar">
-                                {msg.role === 'user' ? <MdPerson /> : <MdSmartToy />}
-                            </div>
-                            <div className="message-content">
-                                <ReactMarkdown>{msg.content}</ReactMarkdown>
-                            </div>
-                        </motion.div>
-                    ))}
+                    {messages.map((msg, idx) => {
+                        const isUser = msg.role === 'user';
+                        return (
+                            <motion.div
+                                key={idx}
+                                className={`flex items-end gap-3 max-w-[85%] ${isUser ? 'ml-auto flex-row-reverse' : 'mr-auto'}`}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isUser ? 'bg-brand-100 text-brand-700' : 'bg-white border border-gray-200 text-gray-600 shadow-sm'}`}>
+                                    {isUser ? <MdPerson size={18} /> : <MdSmartToy size={18} />}
+                                </div>
+                                <div className={`relative px-5 py-3.5 rounded-2xl text-[15px] shadow-sm ${isUser ? 'bg-brand-600 text-white rounded-br-sm' : 'bg-white border border-gray-100 text-gray-800 rounded-bl-sm'}`}>
+                                    <ReactMarkdown className={`prose prose-sm max-w-none ${isUser ? 'prose-invert' : ''}`}>
+                                        {msg.content}
+                                    </ReactMarkdown>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
 
                     {isLoading && (
-                        <motion.div className="message-wrapper message-ai" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                            <div className="message-avatar"><MdSmartToy /></div>
-                            <div className="message-content typing-indicator">
-                                <span>.</span><span>.</span><span>.</span>
+                        <motion.div
+                            className="flex items-end gap-3 max-w-[85%] mr-auto"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                        >
+                            <div className="w-8 h-8 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center shadow-sm shrink-0">
+                                <MdSmartToy size={18} />
+                            </div>
+                            <div className="px-5 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm rounded-bl-sm flex items-center gap-1.5">
+                                <span className="w-2 h-2 rounded-full bg-gray-300 animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                                <span className="w-2 h-2 rounded-full bg-gray-300 animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                                <span className="w-2 h-2 rounded-full bg-gray-300 animate-bounce" style={{ animationDelay: '300ms' }}></span>
                             </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
-                <div ref={messagesEndRef} />
+                <div ref={messagesEndRef} className="h-4" />
             </div>
 
-            <div className="chat-suggestions">
-                {prompts.map((p, i) => (
-                    <button key={i} className="suggestion-chip" onClick={() => setInput(p)}>
-                        {p}
+            {/* Input Area */}
+            <div className="p-4 bg-white border-t border-gray-100 rounded-b-2xl shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)] z-10 relative">
+                {/* Suggestions */}
+                <div className="flex gap-2 overflow-x-auto pb-3 mb-1 no-scrollbar">
+                    {prompts.map((p, i) => (
+                        <button
+                            key={i}
+                            className="whitespace-nowrap px-4 py-2 bg-brand-50 hover:bg-brand-100 text-brand-700 text-sm rounded-full transition-colors font-medium border border-brand-100/50"
+                            onClick={() => setInput(p)}
+                        >
+                            {p}
+                        </button>
+                    ))}
+                </div>
+
+                <form className="relative flex items-center" onSubmit={handleSend}>
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder="अपना प्रश्न यहां लिखें (Write your question here)..."
+                        disabled={isLoading}
+                        className="w-full pl-5 pr-14 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all text-gray-800 placeholder-gray-400"
+                    />
+                    <button
+                        type="submit"
+                        disabled={isLoading || !input.trim()}
+                        className={`absolute right-2.5 p-2.5 rounded-xl flex items-center justify-center transition-all ${input.trim() && !isLoading
+                                ? 'bg-brand-600 text-white hover:bg-brand-700 shadow-md shadow-brand-500/20 active:scale-95'
+                                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                            }`}
+                    >
+                        <MdArrowUpward size={20} className={input.trim() && !isLoading ? 'animate-pulse' : ''} />
                     </button>
-                ))}
+                </form>
             </div>
-
-            <form className="chat-input-form glass-panel" onSubmit={handleSend}>
-                <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="अपना प्रश्न यहां लिखें (Write your question here)..."
-                    disabled={isLoading}
-                />
-                <button
-                    type="submit"
-                    className={`send-btn ${input.trim() && !isLoading ? 'active-send' : 'disabled-send'}`}
-                    disabled={isLoading || !input.trim()}
-                >
-                    <MdArrowUpward size={20} />
-                </button>
-            </form>
         </div>
     );
 }

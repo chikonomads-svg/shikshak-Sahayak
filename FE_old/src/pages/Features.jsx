@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { MdCheckCircle, MdArrowBack, MdStarBorder, MdLightbulbOutline, MdTrendingUp, MdSecurity } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import '../pages/Pages.css';
 
 export default function Features() {
     const navigate = useNavigate();
