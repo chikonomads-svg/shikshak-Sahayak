@@ -86,7 +86,6 @@ class BooksDataManager:
         """Get statistics about the books database"""
         stats = {
             'total_books': len(self.books_data),
-            'total_pdfs': sum(book.get('total_pdfs', 0) for book in self.books_data),
             'classes': {},
             'subjects': set()
         }
@@ -100,12 +99,10 @@ class BooksDataManager:
             if class_name not in stats['classes']:
                 stats['classes'][class_name] = {
                     'books': 0,
-                    'pdfs': 0,
                     'subjects': set()
                 }
             
             stats['classes'][class_name]['books'] += 1
-            stats['classes'][class_name]['pdfs'] += book.get('total_pdfs', 0)
             stats['classes'][class_name]['subjects'].add(subject)
         
         # Convert sets to lists
@@ -154,10 +151,8 @@ class BooksDataManager:
             'class_name': book.get('class', 'Unknown'),
             'subject': book.get('subject', 'Unknown'),
             'title': book.get('book_title', 'Unknown'),
-            'url': book.get('book_url', ''),
-            'total_pdfs': book.get('total_pdfs', 0),
-            'chapters': self._format_chapters(book.get('chapters', [])),
-            'all_pdfs': book.get('all_pdfs', [])
+            'book_url': book.get('book_url', ''),
+            'solution_url': book.get('solution_url', '')
         }
     
     def _extract_class_number(self, class_str: str) -> int:
@@ -179,22 +174,6 @@ class BooksDataManager:
                 
         return 0
     
-    def _format_chapters(self, chapters: List) -> List[Dict]:
-        """Format chapters data"""
-        if not chapters:
-            return []
-        
-        formatted = []
-        for i, chapter in enumerate(chapters, 1):
-            formatted.append({
-                'chapter_number': i,
-                'chapter_name': chapter.get('chapter_name', f'Chapter {i}'),
-                'pdfs': chapter.get('pdfs', [])
-            })
-        
-        return formatted
-
-
 def get_all_books():
     """Get all books (for FastAPI route)"""
     manager = BooksDataManager()
@@ -207,28 +186,4 @@ def get_book_by_id(book_id: str):
     book = manager.get_book_by_id(book_id)
     if book:
         return manager.format_for_api(book)
-    return None
-
-
-def get_chapter_content(book_id: str, chapter_id: str):
-    """Get chapter content (for FastAPI route)"""
-    manager = BooksDataManager()
-    book = manager.get_book_by_id(book_id)
-    
-    if not book or not book.get('chapters'):
-        return None
-    
-    try:
-        chapter_index = int(chapter_id) - 1
-        if 0 <= chapter_index < len(book['chapters']):
-            chapter = book['chapters'][chapter_index]
-            return {
-                'chapter_number': int(chapter_id),
-                'chapter_name': chapter.get('chapter_name', ''),
-                'pdfs': chapter.get('pdfs', []),
-                'book_title': book.get('book_title', '')
-            }
-    except (ValueError, IndexError):
-        pass
-    
     return None

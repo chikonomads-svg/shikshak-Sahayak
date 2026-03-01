@@ -8,9 +8,7 @@ import os
 from pathlib import Path
 
 # Import our custom data manager
-from app.data.books_data import BooksDataManager, get_all_books, get_book_by_id, get_chapter_content
-from app.book_downloader.bihar_books_scraper import BiharBoardBooksScraper
-from app.book_downloader.pdf_downloader import BiharBooksDownloader
+from app.data.books_data import BooksDataManager, get_all_books, get_book_by_id
 
 router = APIRouter(prefix="/books", tags=["किताबें (Books)"])
 
@@ -65,7 +63,6 @@ async def get_classes():
             'class_name': class_name,
             'class_num': data_manager._extract_class_number(class_name),
             'total_books': data['books'],
-            'total_pdfs': data['pdfs'],
             'subjects': data['subjects']
         })
     
@@ -118,7 +115,7 @@ async def health_check():
 
 @router.get("/{book_id}")
 async def get_book(book_id: str):
-    """Get a single book's details with chapter list"""
+    """Get a single book's details"""
     book_data = data_manager.get_book_by_id(book_id)
     
     if not book_data:
@@ -126,125 +123,4 @@ async def get_book(book_id: str):
     
     formatted_book = data_manager.format_for_api(book_data)
     return {"book": formatted_book}
-
-@router.get("/{book_id}/chapters")
-async def get_book_chapters(book_id: str):
-    """Get all chapters for a book"""
-    book_data = data_manager.get_book_by_id(book_id)
-    
-    if not book_data:
-        raise HTTPException(status_code=404, detail="पुस्तक नहीं मिली")
-    
-    chapters = data_manager._format_chapters(book_data.get('chapters', []))
-    
-    return {
-        "book_id": book_id,
-        "book_title": book_data.get('book_title', ''),
-        "total_chapters": len(chapters),
-        "chapters": chapters
-    }
-
-@router.get("/{book_id}/chapter/{chapter_id}")
-async def read_chapter(book_id: str, chapter_id: str):
-    """Get readable chapter content with PDF links"""
-    chapter = get_chapter_content(book_id, chapter_id)
-    
-    if not chapter:
-        raise HTTPException(status_code=404, detail="अध्याय नहीं मिला (Chapter not found)")
-    
-    return {"chapter": chapter}
-
-@router.get("/{book_id}/pdfs")
-async def get_book_pdfs(book_id: str):
-    """Get all PDF links for a book"""
-    book_data = data_manager.get_book_by_id(book_id)
-    
-    if not book_data:
-        raise HTTPException(status_code=404, detail="पुस्तक नहीं मिली")
-    
-    return {
-        "book_id": book_id,
-        "book_title": book_data.get('book_title', ''),
-        "total_pdfs": book_data.get('total_pdfs', 0),
-        "pdfs": book_data.get('all_pdfs', [])
-    }
-
-@router.post("/scrape/update")
-async def update_books_database(background_tasks: BackgroundTasks):
-    """
-    Trigger scraping to update the books database
-    This runs in the background
-    """
-    if not os.path.exists(Path(data_manager.data_file).parent):
-        os.makedirs(Path(data_manager.data_file).parent, exist_ok=True)
-        
-    def scrape_and_save():
-        scraper = BiharBoardBooksScraper()
-        books = scraper.scrape_all_books()
-        scraper.save_to_json(data_manager.data_file)
-        
-        # Reload data in manager
-        data_manager.load_data()
-    
-    background_tasks.add_task(scrape_and_save)
-    
-    return {
-        "message": "Scraping started in background",
-        "status": "processing"
-    }
-
-@router.post("/download/{book_id}")
-async def download_book_pdfs(book_id: str, background_tasks: BackgroundTasks):
-    """
-    Download all PDFs for a specific book
-    This runs in the background
-    """
-    book_data = data_manager.get_book_by_id(book_id)
-    
-    if not book_data:
-        raise HTTPException(status_code=404, detail="पुस्तक नहीं मिली")
-    
-    def download_book():
-        # Will download into bihar_board_books in the root usually
-        downloader = BiharBooksDownloader()
-        downloader.download_book(book_data)
-    
-    background_tasks.add_task(download_book)
-    
-    return {
-        "message": f"Download started for {book_data.get('book_title')}",
-        "book_id": book_id,
-        "status": "processing"
-    }
-
-@router.get("/local/{book_id}/pdf/{filename}")
-async def serve_local_pdf(book_id: str, filename: str):
-    """Serve locally downloaded PDF file"""
-    book_data = data_manager.get_book_by_id(book_id)
-    
-    if not book_data:
-        raise HTTPException(status_code=404, detail="पुस्तक नहीं मिली")
-    
-    # Construct local file path
-    class_name = book_data.get('class', '')
-    subject = book_data.get('subject', '')
-    book_title = book_data.get('book_title', '')
-    
-    def sanitize(s):
-        return ''.join(c if c.isalnum() or c in ' -_' else '_' for c in s)
-    
-    base_path = Path("bihar_board_books")
-    file_path = base_path / sanitize(class_name) / sanitize(subject) / sanitize(book_title) / filename
-    
-    if not file_path.exists():
-        raise HTTPException(
-            status_code=404, 
-            detail="PDF not found. Please download the book first using /download/{book_id}"
-        )
-    
-    return FileResponse(
-        path=file_path,
-        media_type='application/pdf',
-        filename=filename
-    )
 

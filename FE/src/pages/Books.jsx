@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MdMenuBook, MdExpandMore, MdExpandLess } from 'react-icons/md';
-import ReactMarkdown from 'react-markdown';
+import { MdMenuBook, MdExpandMore, MdExpandLess, MdFileDownload, MdCloudDownload } from 'react-icons/md';
 import './Pages.css';
 import { API_BASE } from '../config';
 
@@ -9,47 +8,40 @@ export default function Books() {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedClass, setSelectedClass] = useState('all');
-
     const [activeBook, setActiveBook] = useState(null);
-    const [activeChapter, setActiveChapter] = useState(null);
-    const [chapterContent, setChapterContent] = useState('');
-    const [loadingChapter, setLoadingChapter] = useState(false);
 
     useEffect(() => {
+        fetchBooks();
+    }, []);
+
+    const fetchBooks = () => {
+        setLoading(true);
         fetch(`${API_BASE}/books/list`)
             .then(res => res.json())
             .then(data => {
                 setBooks(data.books || []);
                 setLoading(false);
+            })
+            .catch(err => {
+                console.error("Error fetching books:", err);
+                setLoading(false);
             });
-    }, []);
+    };
 
     const loadBookDetails = async (bookId) => {
         if (activeBook?.id === bookId) {
             setActiveBook(null); // toggle off
             return;
         }
-        const res = await fetch(`${API_BASE}/books/${bookId}`);
-        const data = await res.json();
-        if (data.book) {
-            setActiveBook(data.book);
-            setActiveChapter(null);
-        }
-    };
-
-    const loadChapterContent = async (bookId, chapterId) => {
-        setLoadingChapter(true);
-        setActiveChapter(chapterId);
-
-        // Simulate slight delay for realistic feeling
-        setTimeout(async () => {
-            const res = await fetch(`${API_BASE}/books/${bookId}/chapter/${chapterId}`);
+        try {
+            const res = await fetch(`${API_BASE}/books/${bookId}`);
             const data = await res.json();
-            if (data.chapter) {
-                setChapterContent(data.chapter.content);
+            if (data.book) {
+                setActiveBook(data.book);
             }
-            setLoadingChapter(false);
-        }, 500);
+        } catch (err) {
+            console.error("Error loading book details:", err);
+        }
     };
 
     const filteredBooks = selectedClass === 'all'
@@ -58,14 +50,27 @@ export default function Books() {
 
     const classes = [1, 2, 3, 4, 5, 6, 7, 8];
 
+    // Helper function to map subject to icon
+    const getSubjectIcon = (subject) => {
+        const sub = subject.toLowerCase();
+        if (sub.includes('math')) return '🔢';
+        if (sub.includes('science')) return '🔬';
+        if (sub.includes('hindi')) return '📖';
+        if (sub.includes('english')) return 'A';
+        if (sub.includes('social')) return '🌍';
+        if (sub.includes('sanskrit')) return '🕉️';
+        if (sub.includes('urdu')) return '☪️';
+        return '📚';
+    };
+
     return (
         <div className="page-container">
-            <div className="page-header">
+            <div className="page-header relative">
                 <div>
                     <h1>डिजिटल किताबें</h1>
-                    <p>बिहार बोर्ड कक्षा 1-8 की पाठ्यपुस्तकें और अध्याय</p>
+                    <p>बिहार बोर्ड कक्षा 1-8 की पाठ्यपुस्तकें और पीडीएफ</p>
                 </div>
-                <MdMenuBook size={48} className="text-saffron opacity-50" />
+                <MdMenuBook size={48} className="text-saffron opacity-50 absolute right-4 top-4" />
             </div>
 
             <div className="class-filters mb-8 glass-panel p-4 flex gap-2 overflow-x-auto">
@@ -88,6 +93,10 @@ export default function Books() {
 
             {loading ? (
                 <div className="loading-state"><div className="spinner"></div></div>
+            ) : filteredBooks.length === 0 ? (
+                <div className="text-center py-10 text-gray-500">
+                    <p>किताबें नहीं मिलीं। कृपया बाद में पुनः प्रयास करें या 'सिंक करें' पर क्लिक करें।</p>
+                </div>
             ) : (
                 <div className="books-grid">
                     {filteredBooks.map((book, idx) => (
@@ -102,13 +111,12 @@ export default function Books() {
                                 className="book-header cursor-pointer"
                                 onClick={() => loadBookDetails(book.id)}
                             >
-                                <div className="book-icon">{book.icon}</div>
-                                <div className="book-info">
-                                    <span className="book-subject">{book.subject_name} — कक्षा {book.class_num}</span>
-                                    <h3 className="book-title">{book.title}</h3>
-                                    <span className="book-chapter-count">{book.chapter_count} अध्याय</span>
+                                <div className="book-icon text-3xl mr-4">{getSubjectIcon(book.subject)}</div>
+                                <div className="book-info flex-1">
+                                    <span className="book-subject text-xs font-bold text-saffron uppercase tracking-wider">{book.subject} — {book.class_name}</span>
+                                    <h3 className="book-title text-lg font-bold text-gray-800 leading-tight mt-1">{book.title}</h3>
                                 </div>
-                                <div className="ml-auto text-xl text-gray-400">
+                                <div className="ml-auto text-2xl text-gray-400 p-2">
                                     {activeBook?.id === book.id ? <MdExpandLess /> : <MdExpandMore />}
                                 </div>
                             </div>
@@ -116,35 +124,33 @@ export default function Books() {
                             <AnimatePresence>
                                 {activeBook?.id === book.id && (
                                     <motion.div
-                                        className="book-details mt-4 border-t pt-4"
+                                        className="book-details mt-4 border-t border-gray-100 pt-4"
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: 'auto', opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
                                     >
-                                        <h4 className="font-semibold mb-2 text-sm text-gray-500">विषय सूची (Index):</h4>
-                                        <div className="chapter-buttons">
-                                            {activeBook.chapters.map(ch => (
-                                                <button
-                                                    key={ch.id}
-                                                    className={`btn-link chapter-btn ${activeChapter === ch.id ? 'text-saffron font-bold' : ''}`}
-                                                    onClick={() => loadChapterContent(book.id, ch.id)}
+                                        <div className="flex flex-col gap-3">
+                                            {activeBook.book_url && (
+                                                <a
+                                                    href={activeBook.book_url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="btn btn-primary w-full justify-center flex items-center gap-2 py-3"
                                                 >
-                                                    {ch.title}
-                                                </button>
-                                            ))}
+                                                    <MdFileDownload size={20} /> किताब डाउनलोड करें (Download Book)
+                                                </a>
+                                            )}
+                                            {activeBook.solution_url && (
+                                                <a
+                                                    href={activeBook.solution_url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="btn btn-outline text-indigo-600 border-indigo-200 hover:bg-indigo-50 w-full justify-center flex items-center gap-2 py-3"
+                                                >
+                                                    <MdFileDownload size={20} /> प्रश्न उत्तर डाउनलोड करें (Download Solutions)
+                                                </a>
+                                            )}
                                         </div>
-
-                                        {activeChapter && (
-                                            <div className="chapter-reader mt-4 p-4 bg-white rounded-lg border border-gray-100 shadow-inner">
-                                                {loadingChapter ? (
-                                                    <div className="text-center py-4 text-gray-400">खोल रहा है...</div>
-                                                ) : (
-                                                    <div className="markdown-reader prose prose-orange max-w-none">
-                                                        <ReactMarkdown>{chapterContent}</ReactMarkdown>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        )}
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -155,3 +161,4 @@ export default function Books() {
         </div>
     );
 }
+
