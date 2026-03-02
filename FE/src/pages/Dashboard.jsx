@@ -15,7 +15,8 @@ import {
     MdLibraryAddCheck,
     MdFormatListBulleted,
     MdAutoStories,
-    MdBackpack
+    MdBackpack,
+    MdGroups
 } from 'react-icons/md';
 
 export default function Dashboard() {
@@ -69,6 +70,16 @@ export default function Dashboard() {
             bgColor: 'bg-indigo-50',
             iconColor: 'text-indigo-600',
             borderColor: 'border-indigo-100',
+        },
+        {
+            title: 'अभिभावक–शिक्षक संगोष्ठी',
+            desc: 'परीक्षा पूर्व सकारात्मक सहयोग की सशक्त पहल (PTM)।',
+            icon: <MdGroups size={28} />,
+            path: '/ptm',
+            gradient: 'from-teal-500 to-emerald-600',
+            bgColor: 'bg-emerald-50',
+            iconColor: 'text-emerald-600',
+            borderColor: 'border-emerald-100',
         },
         {
             title: 'शिक्षा सूचनाएं',

@@ -11,6 +11,7 @@ import Signup from './pages/Signup';
 import Features from './pages/Features';
 import Holidays from './pages/Holidays';
 import BaglessSaturday from "./pages/BaglessSaturday";
+import Ptm from "./pages/Ptm";
 
 // Protected Route Wrapper
 function ProtectedRoute({ children }) {
@@ -60,6 +61,14 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <BaglessSaturday />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/ptm"
+                    element={
+                        <ProtectedRoute>
+                            <Ptm />
                         </ProtectedRoute>
                     }
                 />
