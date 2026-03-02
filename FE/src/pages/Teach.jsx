@@ -124,14 +124,15 @@ export default function Teach() {
 
     return (
         <div className="min-h-screen bg-surface pb-12">
-            <div className="bg-brand-600 text-white p-6 md:p-10 mb-8 rounded-b-[2.5rem] shadow-md shadow-brand-500/20 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white p-6 md:p-10 mb-8 rounded-b-[2.5rem] shadow-lg shadow-brand-500/20 relative overflow-hidden">
                 <div className="absolute top-[-20%] right-[-5%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-[-30%] left-[10%] w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
                 <div className="relative z-10 flex items-center justify-between">
                     <div>
                         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">📚 पढ़ाएं</h1>
                         <p className="text-brand-100 text-sm md:text-base max-w-xl font-medium">AI द्वारा प्रश्न बनाएं या PBL प्रोजेक्ट्स खोजें</p>
                     </div>
-                    <MdSchool className="text-white/20 text-6xl md:text-8xl hidden sm:block" />
+                    <MdSchool className="text-white/15 text-6xl md:text-8xl hidden sm:block" />
                 </div>
             </div>
 

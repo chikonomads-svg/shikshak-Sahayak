@@ -63,20 +63,20 @@ export default function Chatbot() {
     return (
         <div className="flex flex-col h-[calc(100vh-120px)] md:h-[calc(100vh-80px)] max-w-4xl mx-auto bg-surface relative">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 bg-white border-b border-gray-100 shadow-sm rounded-t-2xl z-10 relative">
+            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-brand-600 to-brand-700 rounded-t-2xl z-10 relative shadow-md">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm text-white flex items-center justify-center border border-white/10">
                         <MdSmartToy size={24} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-bold text-gray-800 leading-tight">AI शिक्षक सहायक</h2>
-                        <div className="flex items-center gap-2 text-xs font-medium text-emerald-600">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <h2 className="text-lg font-bold text-white leading-tight">AI शिक्षक सहायक</h2>
+                        <div className="flex items-center gap-2 text-xs font-medium text-brand-100">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                             ऑनलाइन (Online)
                         </div>
                     </div>
                 </div>
-                <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" title="Language Toggle (English/Hindi Support Built-in)">
+                <button className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors" title="Language Toggle (English/Hindi Support Built-in)">
                     <MdLanguage size={22} />
                 </button>
             </div>
@@ -154,8 +154,8 @@ export default function Chatbot() {
                         type="submit"
                         disabled={isLoading || !input.trim()}
                         className={`absolute right-2.5 p-2.5 rounded-xl flex items-center justify-center transition-all ${input.trim() && !isLoading
-                                ? 'bg-brand-600 text-white hover:bg-brand-700 shadow-md shadow-brand-500/20 active:scale-95'
-                                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                            ? 'bg-brand-600 text-white hover:bg-brand-700 shadow-md shadow-brand-500/20 active:scale-95'
+                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                             }`}
                     >
                         <MdArrowUpward size={20} className={input.trim() && !isLoading ? 'animate-pulse' : ''} />

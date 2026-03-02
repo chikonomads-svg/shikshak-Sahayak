@@ -1,1 +1,41 @@
 /* Legacy CSS cleared. FEv2 uses Tailwind classes only. */
+
+/* Scrollbar hide utility for filter bars */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* No-scrollbar utility for chat suggestions */
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Smooth card hover transitions */
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+}
+
+/* Print styles for question bank */
+@media print {
+    .print\:hidden {
+        display: none !important;
+    }
+
+    .page-break-avoid {
+        break-inside: avoid;
+    }
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MdCampaign, MdWarning } from 'react-icons/md';
+import { MdCampaign, MdWarning, MdOpenInNew } from 'react-icons/md';
 import ReactMarkdown from 'react-markdown';
 import './Pages.css';
 import { API_BASE } from '../config';
@@ -24,17 +24,33 @@ export default function Notice() {
             });
     }, []);
 
-    const getPriorityColor = (priority) => {
-        if (priority === 'high') return 'bg-red-100 text-red-800 border-red-200 ring-1 ring-red-500/20';
-        if (priority === 'medium') return 'bg-amber-100 text-amber-800 border-amber-200 ring-1 ring-amber-500/20';
-        return 'bg-emerald-100 text-emerald-800 border-emerald-200 ring-1 ring-emerald-500/20';
+    const getPriorityStyles = (priority) => {
+        if (priority === 'high') return {
+            badge: 'bg-red-100 text-red-800 border-red-200 ring-1 ring-red-500/20',
+            gradient: 'from-red-500 to-rose-600',
+            hoverBorder: 'hover:border-red-300',
+            accent: 'text-red-600',
+        };
+        if (priority === 'medium') return {
+            badge: 'bg-amber-100 text-amber-800 border-amber-200 ring-1 ring-amber-500/20',
+            gradient: 'from-amber-500 to-orange-600',
+            hoverBorder: 'hover:border-amber-300',
+            accent: 'text-amber-600',
+        };
+        return {
+            badge: 'bg-emerald-100 text-emerald-800 border-emerald-200 ring-1 ring-emerald-500/20',
+            gradient: 'from-emerald-500 to-teal-600',
+            hoverBorder: 'hover:border-emerald-300',
+            accent: 'text-emerald-600',
+        };
     };
 
     // Full screen modal for a notice
     const NoticeModal = ({ notice, onClose }) => {
         if (!notice) return null;
+        const styles = getPriorityStyles(notice.priority);
         return (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm">
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm" onClick={onClose}>
                 <motion.div
                     className="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl"
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -42,9 +58,12 @@ export default function Notice() {
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                     onClick={(e) => e.stopPropagation()}
                 >
+                    {/* Gradient bar */}
+                    <div className={`h-1.5 bg-gradient-to-r ${styles.gradient}`}></div>
+
                     <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-gray-50/50">
-                        <div className="flex items-center gap-3">
-                            <span className={`px-3 py-1 text-xs font-bold rounded-full border ${getPriorityColor(notice.priority)} flex items-center gap-1.5`}>
+                        <div className="flex items-center gap-3 flex-wrap">
+                            <span className={`px-3 py-1 text-xs font-bold rounded-full border ${styles.badge} flex items-center gap-1.5`}>
                                 {notice.category_icon} {notice.category}
                             </span>
                             <span className="text-sm font-medium text-gray-500 bg-white px-2.5 py-1 rounded-lg border border-gray-200">{notice.date}</span>
@@ -64,8 +83,10 @@ export default function Notice() {
 
     return (
         <div className="min-h-screen bg-surface pb-12 relative">
-            <div className="bg-red-600 text-white p-6 md:p-10 mb-8 rounded-b-[2.5rem] shadow-md shadow-red-500/20 relative overflow-hidden">
+            {/* Gradient Header */}
+            <div className="bg-gradient-to-br from-red-600 via-red-700 to-rose-800 text-white p-6 md:p-10 mb-8 rounded-b-[2.5rem] shadow-lg shadow-red-500/20 relative overflow-hidden">
                 <div className="absolute top-[-20%] right-[-5%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-[-30%] left-[10%] w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
                 <div className="relative z-10 flex items-center justify-between">
                     <div>
                         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 flex items-center gap-3">
@@ -73,20 +94,21 @@ export default function Notice() {
                         </h1>
                         <p className="text-red-100 text-sm md:text-base max-w-xl font-medium">शिक्षा विभाग आदेश, परिपत्र और नोटिस</p>
                     </div>
-                    <MdCampaign className="text-white/20 text-6xl md:text-8xl hidden sm:block" />
+                    <MdCampaign className="text-white/15 text-6xl md:text-8xl hidden sm:block" />
                 </div>
             </div>
 
-            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 {loading ? (
                     <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-gray-100 shadow-sm">
-                        <div className="w-12 h-12 border-4 border-red-100 border-t-red-600 rounded-full animate-spin mb-4"></div>
-                        <p className="text-gray-500 font-medium">सूचनाएं लोड हो रही हैं...</p>
+                        <div className="w-14 h-14 border-4 border-red-100 border-t-red-600 rounded-full animate-spin mb-4"></div>
+                        <p className="text-gray-500 font-medium text-lg">सूचनाएं लोड हो रही हैं...</p>
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                         {notices.map((notice, idx) => {
                             const url = extractUrl(notice.content);
+                            const styles = getPriorityStyles(notice.priority);
                             return (
                                 <motion.a
                                     key={notice.id}
@@ -94,31 +116,39 @@ export default function Notice() {
                                     target={url ? "_blank" : "_self"}
                                     rel={url ? "noopener noreferrer" : ""}
                                     onClick={!url ? (e) => { e.preventDefault(); setSelectedNotice(notice); } : undefined}
-                                    className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:border-red-300 hover:shadow-md transition-all flex flex-col sm:flex-row gap-5 sm:items-center justify-between cursor-pointer group"
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: Math.min(idx * 0.1, 0.5) }}
+                                    className={`bg-white rounded-2xl shadow-sm border border-gray-100 ${styles.hoverBorder} hover:shadow-lg transition-all flex flex-col cursor-pointer group h-full overflow-hidden`}
+                                    initial={{ opacity: 0, y: 15 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: Math.min(idx * 0.08, 0.4) }}
+                                    whileHover={{ y: -4 }}
                                 >
-                                    <div className="flex-1">
-                                        <div className="flex flex-wrap gap-2 items-center mb-3">
-                                            <span className={`px-3 py-1.5 text-xs font-bold rounded-full border ${getPriorityColor(notice.priority)} flex items-center gap-1.5`}>
+                                    {/* Gradient top bar based on priority */}
+                                    <div className={`h-1.5 bg-gradient-to-r ${styles.gradient}`}></div>
+
+                                    <div className="p-5 flex flex-col flex-1">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <span className={`px-2.5 py-1 text-xs font-bold rounded-lg border ${styles.badge} flex items-center gap-1.5`}>
                                                 {notice.category_icon} {notice.category}
                                             </span>
-                                            {notice.priority === 'high' && <MdWarning className="text-red-500 animate-pulse text-lg" />}
-                                            <span className="text-xs font-bold text-gray-500 bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200 ml-auto sm:ml-2 font-mono">
-                                                {notice.date}
+                                            <div className="flex flex-col items-end gap-1">
+                                                {notice.priority === 'high' && <MdWarning className="text-red-500 animate-pulse text-lg" title="High Priority" />}
+                                                <span className="text-xs font-medium text-gray-500 bg-gray-50 px-2 py-1 rounded-lg border border-gray-100 font-mono">
+                                                    {notice.date}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <h3 className={`text-base font-bold text-gray-900 mb-3 group-hover:${styles.accent.replace('text-', 'text-')} transition-colors leading-snug line-clamp-2`}>{notice.title}</h3>
+                                        <p className="text-sm font-medium text-gray-500 line-clamp-3 mb-5 flex-1">{notice.summary}</p>
+
+                                        <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between">
+                                            <div className="text-xs font-bold text-gray-400 inline-flex items-center gap-1.5">
+                                                <span className="opacity-70">प्रेषक:</span> <span className="text-gray-600 truncate max-w-[100px]">{notice.source}</span>
+                                            </div>
+                                            <span className={`text-sm font-bold ${styles.accent} flex items-center gap-1 group-hover:underline shrink-0`}>
+                                                पढ़ें <MdCampaign size={16} className="group-hover:translate-x-0.5 transition-transform" />
                                             </span>
                                         </div>
-                                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors leading-snug pr-4">{notice.title}</h3>
-                                        <p className="text-sm font-medium text-gray-600 line-clamp-2 mb-4 pr-4">{notice.summary}</p>
-                                        <div className="text-xs font-bold text-gray-500 bg-gray-50 px-3 py-1.5 inline-flex items-center gap-2 rounded-lg border border-gray-200">
-                                            <span className="opacity-70">प्रेषक:</span> <span className="text-gray-700">{notice.source}</span>
-                                        </div>
-                                    </div>
-                                    <div className="mt-2 sm:mt-0 flex-none self-start sm:self-center w-full sm:w-auto">
-                                        <button className="w-full sm:w-auto bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 font-bold py-2.5 px-5 rounded-xl transition-colors active:scale-95 flex justify-center items-center">
-                                            विस्तार से पढ़ें
-                                        </button>
                                     </div>
                                 </motion.a>
                             );

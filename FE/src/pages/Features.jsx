@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { MdCheckCircle, MdArrowBack, MdStarBorder, MdLightbulbOutline, MdTrendingUp, MdSecurity } from 'react-icons/md';
+import { MdCheckCircle, MdLightbulbOutline, MdStarBorder, MdTrendingUp, MdSecurity, MdArrowBack, MdRocketLaunch } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 export default function Features() {
@@ -7,114 +7,167 @@ export default function Features() {
 
     const featureHighlights = [
         {
-            category: "🤖 AI शिक्षण सहायक (AI Teaching Assistant)",
-            icon: <MdLightbulbOutline size={28} className="text-blue-500" />,
-            color: "blue",
+            category: "🤖 AI शिक्षण सहायक",
+            subtitle: "AI Teaching Assistant",
+            icon: <MdLightbulbOutline size={28} />,
+            gradient: "from-blue-500 to-indigo-600",
+            bgLight: "bg-blue-50",
+            borderColor: "border-blue-200",
+            iconBg: "bg-blue-100 text-blue-600",
+            checkColor: "text-blue-500",
             items: [
-                "स्वचालित पाठ योजना निर्माण: कक्षा 1-8 के लिए बिहार बोर्ड (BSEB) के पाठ्यक्रम के अनुसार पलक झपकते ही विस्तृत पाठ योजनाएं तैयार करें।",
-                "प्रश्नोत्तरी और MCQ जनरेटर (Teach Module): किसी भी विषय, अध्याय, या कठिनाई स्तर पर बहुविकल्पीय (MCQ) और वर्णनात्मक प्रश्न तुरंत बनाएं। मूल्यांकन के लिए रूब्रिक्स (Rubrics) भी प्राप्त करें।",
-                "स्मार्ट चैटबॉट (Chatbot): छात्रों के जटिल प्रश्नों के तत्काल, सटीक और पाठ्यक्रम-आधारित उत्तर देने वाला 24/7 AI सहायक। यह शैक्षिक सिद्धांतों और SCERT दिशा-निर्देशों के आधार पर सुझाव देता है।"
+                "स्वचालित पाठ योजना निर्माण: कक्षा 1-8 के लिए बिहार बोर्ड (BSEB) पाठ्यक्रम के अनुसार विस्तृत पाठ योजनाएं।",
+                "प्रश्नोत्तरी और MCQ जनरेटर: किसी भी विषय पर बहुविकल्पीय और वर्णनात्मक प्रश्न तुरंत बनाएं।",
+                "स्मार्ट चैटबॉट: छात्रों के प्रश्नों के तत्काल, सटीक और पाठ्यक्रम-आधारित उत्तर देने वाला 24/7 AI सहायक।"
             ]
         },
         {
-            category: "📚 संपूर्ण डिजिटल लाइब्रेरी (Digital Books Archive)",
-            icon: <MdStarBorder size={28} className="text-emerald-500" />,
-            color: "emerald",
+            category: "📚 डिजिटल लाइब्रेरी",
+            subtitle: "Digital Books Archive",
+            icon: <MdStarBorder size={28} />,
+            gradient: "from-emerald-500 to-teal-600",
+            bgLight: "bg-emerald-50",
+            borderColor: "border-emerald-200",
+            iconBg: "bg-emerald-100 text-emerald-600",
+            checkColor: "text-emerald-500",
             items: [
-                "कक्षा 1 से 8 तक की सभी बिहार बोर्ड की किताबें (जैसे कोंपल, कोंपल भाग-2, आदि) डिजिटल (PDF) रूप में एक क्लिक पर उपलब्ध।",
+                "कक्षा 1-8 की सभी बिहार बोर्ड की किताबें डिजिटल (PDF) रूप में एक क्लिक पर उपलब्ध।",
                 "विषयवार और कक्षावार स्मार्ट वर्गीकरण के साथ सहज नेविगेशन।",
-                "किताबें और उनके प्रमाणित प्रश्न-उत्तर (Solutions) सीधे आधिकारिक वेब सर्वर से बिना किसी विज्ञापन या रुकावट के डाउनलोड करें।"
+                "किताबें और प्रमाणित उत्तर आधिकारिक सर्वर से बिना विज्ञापन डाउनलोड करें।"
             ]
         },
         {
-            category: "📢 रीयल-टाइम सूचनाएं और समाचार (Notices & News)",
-            icon: <MdTrendingUp size={28} className="text-amber-500" />,
-            color: "amber",
+            category: "📢 रीयल-टाइम सूचनाएं",
+            subtitle: "Notices & News",
+            icon: <MdTrendingUp size={28} />,
+            gradient: "from-amber-500 to-orange-600",
+            bgLight: "bg-amber-50",
+            borderColor: "border-amber-200",
+            iconBg: "bg-amber-100 text-amber-600",
+            checkColor: "text-amber-500",
             items: [
-                "शिक्षा विभाग के सभी नए आदेश, स्थानांतरण नीतियां, वेतन अपडेट, और छुट्टियों की सूचनाएं एक ही डैशबोर्ड पर।",
-                "बिहार के शैक्षिक परिदृश्य की ताज़ा खबरों का लाइव वेब-स्क्रैपिंग एकत्रीकरण, ताकि आप हमेशा अपडेटेड रहें।",
-                "महत्वपूर्ण सूचनाओं को बुकमार्क करने और भविष्य के संदर्भ के लिए सहेजने की क्षमता (आगामी)।"
+                "शिक्षा विभाग के सभी आदेश, स्थानांतरण नीतियां, वेतन अपडेट एक ही डैशबोर्ड पर।",
+                "बिहार शिक्षा परिदृश्य की ताज़ा खबरों का लाइव एकत्रीकरण।",
+                "महत्वपूर्ण सूचनाओं को बुकमार्क करने की क्षमता (आगामी)।"
             ]
         },
         {
-            category: "🔒 शिक्षक प्रोफ़ाइल और डेटा सुरक्षा (Teacher Security)",
-            icon: <MdSecurity size={28} className="text-purple-500" />,
-            color: "purple",
+            category: "🔒 डेटा सुरक्षा",
+            subtitle: "Teacher Security",
+            icon: <MdSecurity size={28} />,
+            gradient: "from-purple-500 to-violet-600",
+            bgLight: "bg-purple-50",
+            borderColor: "border-purple-200",
+            iconBg: "bg-purple-100 text-purple-600",
+            checkColor: "text-purple-500",
             items: [
-                "अत्यंत सुरक्षित लॉगिन और साइन-अप सिस्टम जो बैंक-ग्रेड एन्क्रिप्शन (SHA-256) और PostgreSQL क्लाउड डेटाबेस का उपयोग करता है।",
-                "शुरू किए गए चैट इतिहास और उत्पन्न पाठ योजनाओं का सुरक्षित क्लाउड सिंक, ताकि आपका डेटा कभी न खोए।",
-                "डेटा गोपनीयता सर्वोपरि है; शिक्षक का व्यक्तिगत डेटा कभी भी तीसरे पक्ष के साथ साझा नहीं किया जाता है।"
+                "बैंक-ग्रेड एन्क्रिप्शन (SHA-256) और PostgreSQL क्लाउड डेटाबेस।",
+                "चैट इतिहास और पाठ योजनाओं का सुरक्षित क्लाउड सिंक।",
+                "शिक्षक का डेटा कभी भी तीसरे पक्ष के साथ साझा नहीं किया जाता।"
             ]
         }
     ];
 
     return (
-        <div className="page-container pb-20">
-            <div className="page-header relative mb-10">
-                <div>
-                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-emerald-600">
-                        वर्तमान विशेषताएँ (Current Features)
-                    </h1>
-                    <p className="text-gray-600 mt-2 text-lg">बिहार बोर्ड के शिक्षकों को सशक्त बनाने वाले अत्याधुनिक डिजिटल साधन</p>
-                </div>
-                <button
-                    onClick={() => navigate('/')}
-                    className="absolute right-4 top-4 btn btn-outline flex gap-2 items-center border-gray-300 text-gray-700 hover:bg-gray-100"
-                >
-                    <MdArrowBack /> वापस डैशबोर्ड
-                </button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                {featureHighlights.map((feat, idx) => (
-                    <motion.div
-                        key={idx}
-                        className="glass-panel p-8 border-t-4 shadow-lg hover:shadow-xl transition-shadow duration-300"
-                        style={{ borderTopColor: feat.color === 'blue' ? '#3B82F6' : feat.color === 'emerald' ? '#10B981' : feat.color === 'amber' ? '#F59E0B' : '#8B5CF6' }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.15 }}
+        <div className="min-h-screen bg-surface pb-12">
+            {/* Gradient Header */}
+            <div className="bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white p-6 md:p-10 mb-8 rounded-b-[2.5rem] shadow-md shadow-brand-500/20 relative overflow-hidden">
+                <div className="absolute top-[-20%] right-[-5%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-[-30%] left-[-5%] w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
+                <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">✨ वर्तमान विशेषताएँ</h1>
+                        <p className="text-brand-100 text-sm md:text-base max-w-xl font-medium">बिहार बोर्ड शिक्षकों को सशक्त बनाने वाले अत्याधुनिक डिजिटल साधन</p>
+                    </div>
+                    <button
+                        onClick={() => navigate('/')}
+                        className="bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-xl transition-colors backdrop-blur-sm border border-white/10 flex items-center justify-center gap-2 active:scale-95 self-start sm:self-auto"
                     >
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className={`p-3 rounded-full bg-${feat.color}-100`}>
-                                {feat.icon}
-                            </div>
-                            <h2 className="text-2xl font-bold text-gray-800">{feat.category}</h2>
-                        </div>
-                        <ul className="space-y-4">
-                            {feat.items.map((item, itemIdx) => (
-                                <li key={itemIdx} className="flex items-start text-gray-700 bg-white/50 p-3 rounded-lg border border-gray-100">
-                                    <MdCheckCircle className={`text-${feat.color}-500 mr-3 mt-1 flex-shrink-0`} size={22} />
-                                    <span className="leading-relaxed text-[15px]">{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </motion.div>
-                ))}
+                        <MdArrowBack className="text-xl" /> वापस डैशबोर्ड
+                    </button>
+                </div>
             </div>
 
-            <motion.div
-                className="mt-12 p-8 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-100 rounded-2xl border border-emerald-200 shadow-sm text-center relative overflow-hidden"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 }}
-            >
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-emerald-200 rounded-full opacity-50 blur-xl"></div>
-                <div className="absolute bottom-0 left-0 -mb-4 -ml-4 w-24 h-24 bg-teal-200 rounded-full opacity-50 blur-xl"></div>
+            {/* Feature Cards Grid */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {featureHighlights.map((feat, idx) => (
+                        <motion.div
+                            key={idx}
+                            className={`bg-white rounded-2xl shadow-sm border ${feat.borderColor} overflow-hidden hover:shadow-lg transition-all duration-300 group`}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: idx * 0.12 }}
+                            whileHover={{ y: -4 }}
+                        >
+                            {/* Colored Top Bar */}
+                            <div className={`h-1.5 bg-gradient-to-r ${feat.gradient}`}></div>
 
-                <h3 className="text-2xl font-bold text-emerald-800 mb-4 relative z-10">🚀 आगे क्या है? (Upcoming Innovations)</h3>
-                <div className="max-w-3xl mx-auto space-y-2 relative z-10">
-                    <p className="text-emerald-700 text-lg">
-                        <strong>ऑडियो/वॉयस डिक्टेशन:</strong> टाइपिंग के बजाय बोलकर पाठ योजनाएं और प्रश्न बनाएं।
-                    </p>
-                    <p className="text-emerald-700 text-lg">
-                        <strong>छात्र प्रगति ट्रैकिंग:</strong> कक्षा में लिए गए क्विज़ के आधार पर छात्रों के प्रदर्शन का ग्राफिकल विश्लेषण।
-                    </p>
-                    <p className="text-emerald-700 text-lg">
-                        <strong>स्थानीय भाषा समर्थन:</strong> AI चैटबॉट और इंटरफ़ेस के लिए मैथिली, भोजपुरी, और मगही भाषाओं का एकीकरण।
-                    </p>
+                            <div className="p-6 md:p-8">
+                                {/* Header */}
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className={`w-14 h-14 rounded-2xl ${feat.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm`}>
+                                        {feat.icon}
+                                    </div>
+                                    <div>
+                                        <h2 className="text-xl font-bold text-gray-900 leading-tight">{feat.category}</h2>
+                                        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{feat.subtitle}</span>
+                                    </div>
+                                </div>
+
+                                {/* Items */}
+                                <ul className="space-y-4">
+                                    {feat.items.map((item, itemIdx) => (
+                                        <li key={itemIdx} className={`flex items-start gap-3 ${feat.bgLight} p-4 rounded-xl border ${feat.borderColor} border-opacity-50`}>
+                                            <MdCheckCircle className={`${feat.checkColor} mt-0.5 flex-shrink-0`} size={20} />
+                                            <span className="text-gray-700 text-sm leading-relaxed font-medium">{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
-            </motion.div>
+
+                {/* Upcoming Features Banner */}
+                <motion.div
+                    className="mt-10 bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100 rounded-2xl border border-emerald-200 shadow-sm overflow-hidden relative"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.6 }}
+                >
+                    <div className="h-1.5 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600"></div>
+                    <div className="absolute top-10 right-[-2rem] w-32 h-32 bg-emerald-200 rounded-full opacity-40 blur-2xl"></div>
+                    <div className="absolute bottom-0 left-[-2rem] w-24 h-24 bg-teal-200 rounded-full opacity-40 blur-2xl"></div>
+
+                    <div className="p-8 relative z-10 text-center">
+                        <div className="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-sm">
+                            <MdRocketLaunch size={28} />
+                        </div>
+                        <h3 className="text-2xl font-bold text-emerald-800 mb-6">🚀 आगे क्या है? (Upcoming)</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                            {[
+                                { emoji: "🎤", title: "ऑडियो/वॉयस डिक्टेशन", desc: "बोलकर पाठ योजनाएं और प्रश्न बनाएं।" },
+                                { emoji: "📊", title: "छात्र प्रगति ट्रैकिंग", desc: "क्विज़ के आधार पर प्रदर्शन का ग्राफिकल विश्लेषण।" },
+                                { emoji: "🗣️", title: "स्थानीय भाषा समर्थन", desc: "मैथिली, भोजपुरी, और मगही भाषाओं का एकीकरण।" }
+                            ].map((upcoming, i) => (
+                                <motion.div
+                                    key={i}
+                                    className="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-emerald-100 hover:bg-white hover:shadow-md transition-all"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.7 + i * 0.1 }}
+                                    whileHover={{ y: -3 }}
+                                >
+                                    <span className="text-3xl mb-3 block">{upcoming.emoji}</span>
+                                    <h4 className="font-bold text-emerald-900 text-base mb-1">{upcoming.title}</h4>
+                                    <p className="text-emerald-700 text-sm font-medium">{upcoming.desc}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
         </div>
     );
 }
