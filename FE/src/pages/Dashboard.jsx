@@ -14,7 +14,8 @@ import {
     MdAssignment,
     MdLibraryAddCheck,
     MdFormatListBulleted,
-    MdAutoStories
+    MdAutoStories,
+    MdBackpack
 } from 'react-icons/md';
 
 export default function Dashboard() {
@@ -58,6 +59,16 @@ export default function Dashboard() {
             bgColor: 'bg-purple-50',
             iconColor: 'text-purple-600',
             borderColor: 'border-purple-100',
+        },
+        {
+            title: 'सुरक्षित शनिवार',
+            desc: 'बैगलेस शनिवार के लिए 120+ रचनात्मक गतिविधियों का संग्रह।',
+            icon: <MdBackpack size={28} />,
+            path: '/bagless-saturday',
+            gradient: 'from-indigo-500 to-purple-600',
+            bgColor: 'bg-indigo-50',
+            iconColor: 'text-indigo-600',
+            borderColor: 'border-indigo-100',
         },
         {
             title: 'शिक्षा सूचनाएं',

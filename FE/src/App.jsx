@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Features from './pages/Features';
 import Holidays from './pages/Holidays';
+import BaglessSaturday from "./pages/BaglessSaturday";
 
 // Protected Route Wrapper
 function ProtectedRoute({ children }) {
@@ -38,10 +39,31 @@ function App() {
                 <Route path="/teach" element={<ProtectedRoute><Teach /></ProtectedRoute>} />
                 <Route path="/books" element={<ProtectedRoute><Books /></ProtectedRoute>} />
                 <Route path="/notice" element={<ProtectedRoute><Notice /></ProtectedRoute>} />
-                <Route path="/features" element={<ProtectedRoute><Features /></ProtectedRoute>} />
-                <Route path="/holidays" element={<ProtectedRoute><Holidays /></ProtectedRoute>} />
-
-                {/* Fallback */}
+                <Route
+                    path="/features"
+                    element={
+                        <ProtectedRoute>
+                            <Features />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/holidays"
+                    element={
+                        <ProtectedRoute>
+                            <Holidays />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/bagless-saturday"
+                    element={
+                        <ProtectedRoute>
+                            <BaglessSaturday />
+                        </ProtectedRoute>
+                    }
+                />
+                {/* Catch all */}
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </Router>
