@@ -12,6 +12,7 @@ import Features from './pages/Features';
 import Holidays from './pages/Holidays';
 import BaglessSaturday from "./pages/BaglessSaturday";
 import Ptm from "./pages/Ptm";
+import AITeacherBook from "./pages/AITeacherBook";
 
 // Protected Route Wrapper
 function ProtectedRoute({ children }) {
@@ -69,6 +70,14 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <Ptm />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/ai-teacher-book"
+                    element={
+                        <ProtectedRoute>
+                            <AITeacherBook />
                         </ProtectedRoute>
                     }
                 />

@@ -82,6 +82,16 @@ export default function Dashboard() {
             borderColor: 'border-emerald-100',
         },
         {
+            title: 'शिक्षक और AI',
+            desc: 'भविष्य के लिए तैयार शिक्षक (डिजिटल फ्लिपबुक)।',
+            icon: <MdAutoStories size={28} />,
+            path: '/ai-teacher-book',
+            gradient: 'from-blue-500 to-indigo-600',
+            bgColor: 'bg-blue-50',
+            iconColor: 'text-blue-600',
+            borderColor: 'border-blue-100',
+        },
+        {
             title: 'शिक्षा सूचनाएं',
             desc: 'विभाग के ताज़ा आदेश, वेतन और छुट्टियों की जानकारी।',
             icon: <MdCampaign size={28} />,
