@@ -8,7 +8,8 @@ import {
     MdCampaign,
     MdArrowForward,
     MdStar,
-    MdLightbulb
+    MdLightbulb,
+    MdEvent
 } from 'react-icons/md';
 
 export default function Dashboard() {
@@ -42,6 +43,16 @@ export default function Dashboard() {
             bgColor: 'bg-emerald-50',
             iconColor: 'text-emerald-600',
             borderColor: 'border-emerald-100',
+        },
+        {
+            title: 'अवकाश तालिका 2026',
+            desc: 'बिहार सरकार द्वारा घोषित वर्ष 2026 की आधिकारिक छुट्टियों की पूरी सूची।',
+            icon: <MdEvent size={28} />,
+            path: '/holidays',
+            gradient: 'from-fuchsia-500 to-pink-600',
+            bgColor: 'bg-fuchsia-50',
+            iconColor: 'text-fuchsia-600',
+            borderColor: 'border-fuchsia-100',
         },
         {
             title: 'किताबें (BSEB)',
