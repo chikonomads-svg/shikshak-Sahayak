@@ -131,14 +131,22 @@ export default function Holidays() {
                 ))}
             </div>
 
-            {/* Footer Note */}
+            {/* Footer Notes */}
             <motion.div
-                className="mt-12 text-center text-gray-500 text-sm bg-gray-100 rounded-xl p-4"
+                className="mt-12 text-gray-700 text-sm bg-gray-50 rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
             >
-                <p>नोट: यह सूची बिहार सरकार शिक्षा विभाग द्वारा जारी वर्ष 2026 के कैलेंडर पर आधारित है।</p>
+                <h3 className="font-bold text-gray-900 mb-4 text-base md:text-lg flex items-center gap-2">
+                    <span className="text-xl">⚠️</span> महत्वपूर्ण सूचना (निर्देश):
+                </h3>
+                <ol className="list-decimal pl-5 space-y-3 leading-relaxed">
+                    <li>चाँद के दृष्टिगोचर होने के अनुसार मुस्लिम त्योहारों की तिथि में परिवर्तन हो सकता है।</li>
+                    <li>राज्य के सभी राजकीय / राजकीयकृत / परियोजना / उत्क्रमित प्रारंभिक, माध्यमिक एवं उच्च माध्यमिक विद्यालय उक्त अवकाश तालिका के अनुसार ही बंद रहेंगे।</li>
+                    <li>सभी विद्यालयों में वार्षिकोत्सव, गणतंत्र दिवस, स्वतंत्रता दिवस एवं गाँधी जयन्ती मनायी जाएगी। इस दौरान सभी विद्यार्थी एवं शिक्षक उपस्थित रहेंगे। कार्यक्रम आयोजन के बाद विद्यालय की छुट्टी होगी।</li>
+                    <li>दीर्घकालीन अवकाश यथा ग्रीष्मावकाश, दीपावली से छठ पूजा तक के अवकाश अवधि एवं शीतकालीन अवकाश में छात्र/छात्राओं को सभी विषयों के लिए गृह कार्य एवं परियोजना कार्य दिया जाना अनिवार्य होगा। विद्यालय खुलने पर शिक्षक का यह दायित्व होगा कि उक्त कार्यों का मूल्यांकन करेंगे।</li>
+                </ol>
             </motion.div>
         </div>
     );

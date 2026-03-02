@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { MdRefresh, MdCheckCircle, MdCancel, MdSchool, MdPrint, MdLibraryBooks, MdClose } from 'react-icons/md';
 import ReactMarkdown from 'react-markdown';
 import MermaidViewer from '../components/MermaidViewer';
@@ -8,8 +9,13 @@ import './Pages.css';
 import { API_BASE } from '../config';
 
 export default function Teach() {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const initialTab = queryParams.get('tab') === 'pbl' ? 'pbl' : 'quiz';
+    const initialMode = ['actual', 'descriptive', 'mcq'].includes(queryParams.get('mode')) ? queryParams.get('mode') : 'mcq';
+
     const [subjectsData, setSubjectsData] = useState(null);
-    const [activeTab, setActiveTab] = useState('quiz'); // 'quiz' or 'pbl'
+    const [activeTab, setActiveTab] = useState(initialTab); // 'quiz' or 'pbl'
     const [selectedPbl, setSelectedPbl] = useState(null);
     const [filteredPbls, setFilteredPbls] = useState([]);
 
@@ -17,7 +23,7 @@ export default function Teach() {
     const [selectedClass, setSelectedClass] = useState('6');
     const [selectedSubject, setSelectedSubject] = useState('math');
     const [topic, setTopic] = useState('');
-    const [mode, setMode] = useState('mcq');
+    const [mode, setMode] = useState(initialMode);
     const [questionCount, setQuestionCount] = useState(5);
 
     // Quiz state

@@ -9,7 +9,12 @@ import {
     MdArrowForward,
     MdStar,
     MdLightbulb,
-    MdEvent
+    MdEvent,
+    MdQuiz,
+    MdAssignment,
+    MdLibraryAddCheck,
+    MdFormatListBulleted,
+    MdAutoStories
 } from 'react-icons/md';
 
 export default function Dashboard() {
@@ -33,16 +38,6 @@ export default function Dashboard() {
             bgColor: 'bg-blue-50',
             iconColor: 'text-blue-600',
             borderColor: 'border-blue-100',
-        },
-        {
-            title: 'पाठ योजना (पढ़ाएं)',
-            desc: 'कक्षा 1-8 के लिए स्वचालित प्रश्नोत्तरी और पाठ रूपरेखा।',
-            icon: <MdSchool size={28} />,
-            path: '/teach',
-            gradient: 'from-emerald-500 to-teal-600',
-            bgColor: 'bg-emerald-50',
-            iconColor: 'text-emerald-600',
-            borderColor: 'border-emerald-100',
         },
         {
             title: 'अवकाश तालिका 2026',
@@ -96,6 +91,59 @@ export default function Dashboard() {
         }
     ];
 
+    const teachingTools = [
+        {
+            title: 'प्रश्नोत्तरी / प्रश्न बैंक',
+            desc: 'पाठ्यक्रम आधारित स्वचालित महत्वपूर्ण प्रश्नोत्तरी।',
+            icon: <MdQuiz size={28} />,
+            path: '/teach?tab=quiz',
+            gradient: 'from-blue-500 to-indigo-600',
+            bgColor: 'bg-blue-50',
+            iconColor: 'text-blue-600',
+            borderColor: 'border-blue-100',
+        },
+        {
+            title: 'प्रोजेक्ट-आधारित शिक्षा',
+            desc: 'छात्रों के लिए रचनात्मक PBL गतिविधियाँ।',
+            icon: <MdAssignment size={28} />,
+            path: '/teach?tab=pbl',
+            gradient: 'from-emerald-500 to-teal-600',
+            bgColor: 'bg-emerald-50',
+            iconColor: 'text-emerald-600',
+            borderColor: 'border-emerald-100',
+        },
+        {
+            title: 'बिहार बोर्ड (Actual)',
+            desc: 'कक्षा 1-8 के पैटर्न के अनुसार सटीक प्रश्न।',
+            icon: <MdLibraryAddCheck size={28} />,
+            path: '/teach?tab=quiz&mode=actual',
+            gradient: 'from-amber-500 to-orange-600',
+            bgColor: 'bg-amber-50',
+            iconColor: 'text-amber-600',
+            borderColor: 'border-amber-100',
+        },
+        {
+            title: 'वर्णनात्मक प्रश्न',
+            desc: 'विस्तृत उत्तर वाले दीर्घ एवं लघु प्रश्न।',
+            icon: <MdFormatListBulleted size={28} />,
+            path: '/teach?tab=quiz&mode=descriptive',
+            gradient: 'from-purple-500 to-violet-600',
+            bgColor: 'bg-purple-50',
+            iconColor: 'text-purple-600',
+            borderColor: 'border-purple-100',
+        },
+        {
+            title: 'MCQ (बहुविकल्पीय)',
+            desc: 'छात्रों के त्वरित मूल्यांकन के लिए MCQs।',
+            icon: <MdAutoStories size={28} />,
+            path: '/teach?tab=quiz&mode=mcq',
+            gradient: 'from-rose-500 to-pink-600',
+            bgColor: 'bg-rose-50',
+            iconColor: 'text-rose-600',
+            borderColor: 'border-rose-100',
+        }
+    ];
+
     return (
         <div className="space-y-8 pb-20 lg:pb-8">
             {/* Hero Section */}
@@ -130,9 +178,38 @@ export default function Dashboard() {
                 <div className="absolute top-1/2 right-8 w-32 h-32 bg-white/5 rounded-full blur-2xl hidden lg:block"></div>
             </motion.div>
 
-            {/* Quick Actions Grid — Square Box Tiles */}
+            {/* Teaching and Evaluation Tools (New Section) */}
             <div>
                 <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900">शिक्षण और मूल्यांकन उपकरण</h2>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                    {teachingTools.map((tool, index) => (
+                        <motion.div
+                            key={index}
+                            onClick={() => navigate(tool.path)}
+                            className={`group cursor-pointer bg-white rounded-2xl border ${tool.borderColor} overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col`}
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: index * 0.08 }}
+                            whileHover={{ y: -5 }}
+                        >
+                            <div className={`h-1.5 bg-gradient-to-r ${tool.gradient}`}></div>
+                            <div className="p-5 flex flex-col items-center text-center flex-1">
+                                <div className={`w-14 h-14 rounded-2xl ${tool.bgColor} ${tool.iconColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-sm`}>
+                                    {tool.icon}
+                                </div>
+                                <h3 className="text-base md:text-lg font-bold text-gray-800 mb-2 leading-tight">{tool.title}</h3>
+                                <p className="text-gray-500 text-xs md:text-sm leading-relaxed flex-1">{tool.desc}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Quick Actions Grid — Square Box Tiles */}
+            <div>
+                <div className="flex items-center justify-between mt-8 mb-6">
                     <h2 className="text-2xl font-bold text-gray-900">मुख्य उपकरण (Tools)</h2>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-6">
